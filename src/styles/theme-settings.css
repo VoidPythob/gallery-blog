@@ -34,17 +34,25 @@
 }
 
 .theme-settings-popup {
-  background: transparent;
-  border: 0;
-  box-shadow: none;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
   max-width: calc(100vw - 24px);
 }
 
 .theme-settings-popup-inner {
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  padding: 0;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.theme-settings-popup .t-popup__content,
+.theme-settings-popup .t-popup__content-inner {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
 }
 
 .theme-settings-title {
