@@ -54,6 +54,10 @@
     padding: 16px;
   }
 
+  .hero-scroll {
+    bottom: 30px;
+  }
+
   .content-area {
     padding-top: 0;
   }
@@ -63,4 +67,3 @@
     bottom: 12px;
   }
 }
-

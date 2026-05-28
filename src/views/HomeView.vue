@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { ChevronDownIcon } from 'tdesign-icons-vue-next'
 import ContentLayout from '../components/ContentLayout.vue'
 import PageSection from '../components/PageSection.vue'
 import ArticleCard from '../components/ArticleCard.vue'
@@ -56,8 +57,10 @@ onBeforeUnmount(() => {
         <div class="hero-typing">
           <span class="typing-line">{{ typedQuote }}</span><span class="typing-caret">|</span>
         </div>
-        <a class="hero-scroll" href="#home-content">{{ heroConfig.enterText }}</a>
       </div>
+      <a class="hero-scroll" href="#home-content" :aria-label="heroConfig.enterText">
+        <ChevronDownIcon />
+      </a>
     </section>
 
     <section id="home-content" class="content-area">

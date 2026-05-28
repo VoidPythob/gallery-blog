@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { Button, ColorPicker, Popup, RadioGroup, Slider, Switch } from 'tdesign-vue-next'
+import { SettingIcon } from 'tdesign-icons-vue-next'
 import { useThemeStore, type ThemeFilter } from '../stores/theme'
 import { themeFilterOptions, themePanelText } from '../data/ui'
 
@@ -115,7 +116,9 @@ onBeforeUnmount(() => {
         </div>
       </template>
 
-      <Button theme="primary" shape="circle" class="theme-settings-trigger">{{ themePanelText.trigger }}</Button>
+      <Button theme="primary" shape="circle" class="theme-settings-trigger">
+        <SettingIcon />
+      </Button>
     </Popup>
   </div>
 </template>
