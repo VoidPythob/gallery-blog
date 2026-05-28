@@ -1,0 +1,66 @@
+@media (max-width: 900px) {
+  .topbar-menu {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .topbar-nav {
+    display: none;
+  }
+
+  .desktop-search {
+    display: none;
+  }
+
+  .mobile-search-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .content-main {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 650px) {
+  :root {
+    --topbar-height: 56px;
+  }
+
+  .app-content {
+    padding: 10px;
+  }
+
+  .topbar {
+    padding: 10px 12px;
+  }
+
+  .hero-panel {
+    min-height: calc(100vh - var(--topbar-height));
+    padding: 16px;
+  }
+
+  .hero-overlay {
+    padding: 16px;
+  }
+
+  .content-area {
+    padding-top: 0;
+  }
+
+  .theme-settings {
+    right: 12px;
+    bottom: 12px;
+  }
+}
+

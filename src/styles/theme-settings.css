@@ -1,0 +1,101 @@
+.theme-settings {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+}
+
+.theme-settings-trigger {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-style);
+}
+
+.theme-settings-panel {
+  width: 340px;
+  max-width: calc(100vw - 24px);
+  max-height: min(78vh, 720px);
+  border-radius: var(--radius-base);
+  background: color-mix(in srgb, var(--panel-bg) 72%, rgba(255, 255, 255, 0.06));
+  border: 1px solid color-mix(in srgb, var(--topbar-glass-border) 72%, transparent);
+  box-shadow: var(--shadow-style);
+  backdrop-filter: saturate(180%) blur(28px);
+  -webkit-backdrop-filter: saturate(180%) blur(28px);
+  overflow: hidden;
+}
+
+.theme-settings-scroll {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  max-height: inherit;
+  overflow-y: auto;
+}
+
+.theme-settings-popup {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  max-width: calc(100vw - 24px);
+}
+
+.theme-settings-popup-inner {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+.theme-settings-title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.theme-settings-block {
+  display: grid;
+  gap: 8px;
+}
+
+.theme-settings-label {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted-text);
+}
+
+.theme-mode-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.theme-color-picker,
+.theme-color-picker .t-input,
+.theme-color-picker .t-input__wrap {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.theme-color-picker .t-input__inner {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.theme-color-picker .t-input__control {
+  min-width: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 650px) {
+  .theme-settings-panel {
+    width: min(92vw, 360px);
+    max-height: min(74vh, 560px);
+  }
+
+  .theme-settings-scroll {
+    padding: 14px;
+  }
+}

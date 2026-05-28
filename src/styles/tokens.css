@@ -1,0 +1,26 @@
+:root {
+  color-scheme: light;
+  font-family: "Segoe UI", "PingFang SC", sans-serif;
+  background: var(--page-base-bg, #f4f7fb);
+  color: #1f2937;
+  --topbar-height: 68px;
+  --page-base-bg: #f4f7fb;
+  --page-background: linear-gradient(180deg, #eaf0ff 0%, #f8fbff 100%);
+  --text-color: #1f2937;
+  --muted-text: #4b5563;
+  --surface-bg: rgba(255, 255, 255, 0.88);
+  --panel-bg: rgba(247, 250, 255, 0.92);
+  --surface-border: #dbe4ff;
+  --topbar-glass-background: rgba(255, 255, 255, 0.72);
+  --topbar-glass-border: #dbe4ff;
+  --accent-color: #2962ff;
+  --accent-text-color: #2962ff;
+  --radius-base: 16px;
+  --radius-soft: 12px;
+  --shadow-style: 0 8px 18px rgba(15, 23, 42, 0.16);
+  --theme-filter: none;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
