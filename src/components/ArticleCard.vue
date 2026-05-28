@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+
 defineProps<{
+  id: number
   title: string
   introduction: string
   coverUrl: string
@@ -7,10 +10,18 @@ defineProps<{
   isToped: boolean
   readTime: number
 }>()
+
+const router = useRouter()
 </script>
 
 <template>
-  <article class="content-card article-card">
+  <article
+    class="content-card article-card"
+    role="button"
+    tabindex="0"
+    @click="router.push(`/blog/${id}`)"
+    @keyup.enter="router.push(`/blog/${id}`)"
+  >
     <div class="card-cover" :style="{ backgroundImage: `url(${coverUrl})` }">
       <span v-if="isToped" class="badge">置顶</span>
     </div>

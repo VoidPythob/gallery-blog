@@ -1,5 +1,5 @@
 export type Article = {
-  id: string;
+  id: number;
   title: string;
   coverUrl: string;
   tags: string[];
@@ -10,7 +10,7 @@ export type Article = {
 };
 
 export type GalleryItem = {
-  id: string;
+  id: number;
   title: string;
   imageUrl: string;
   tags: string[];
