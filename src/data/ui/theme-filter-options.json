@@ -1,0 +1,8 @@
+﻿{
+  "options": [
+    { "label": "无滤镜", "value": "none" },
+    { "label": "暖色", "value": "warm" },
+    { "label": "灰度", "value": "gray" },
+    { "label": "柔和", "value": "soft" }
+  ]
+}

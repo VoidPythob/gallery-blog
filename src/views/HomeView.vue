@@ -4,14 +4,16 @@ import ContentLayout from '../components/ContentLayout.vue'
 import PageSection from '../components/PageSection.vue'
 import ArticleCard from '../components/ArticleCard.vue'
 import GalleryCard from '../components/GalleryCard.vue'
-import { articles, galleryItems } from '../data/site'
-import { getDailyWord, heroConfig, pageText } from '../data/ui'
+import { getArticles, getDailyWord, getGalleryItems, type Article, type GalleryItem } from '../data/site'
+import { heroConfig, pageText } from '../data/ui'
 
-const dailyQuote = getDailyWord()
 const typedQuote = ref('')
+const articles = ref<Article[]>([])
+const galleryItems = ref<GalleryItem[]>([])
 
 let timer: number | undefined
 let index = 0
+let dailyQuote = ''
 
 const step = () => {
   if (index <= dailyQuote.length) {
@@ -29,7 +31,13 @@ const step = () => {
 }
 
 onMounted(() => {
-  step()
+  void (async () => {
+    const [word, articleList, galleryList] = await Promise.all([getDailyWord(), getArticles(), getGalleryItems()])
+    dailyQuote = word
+    articles.value = articleList
+    galleryItems.value = galleryList
+    step()
+  })()
 })
 
 onBeforeUnmount(() => {

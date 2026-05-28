@@ -1,0 +1,11 @@
+﻿{
+  "title": "主题设置",
+  "mode": "模式",
+  "light": "浅色",
+  "dark": "深色",
+  "themeColor": "主题色",
+  "filter": "滤镜",
+  "radius": "圆角",
+  "shadow": "阴影",
+  "trigger": "设"
+}

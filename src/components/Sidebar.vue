@@ -1,11 +1,16 @@
-<script setup lang="ts">
-import { computed } from 'vue'
+﻿<script setup lang="ts">
+import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { getDailyWord, navItems, siteMeta } from '../data/ui'
+import { navItems, siteMeta } from '../data/ui'
+import { getDailyWord } from '../data/site'
 
 const route = useRoute()
 const activePath = computed(() => route.path)
-const dailyWord = getDailyWord()
+const dailyWord = ref('')
+
+onMounted(async () => {
+  dailyWord.value = await getDailyWord()
+})
 </script>
 
 <template>

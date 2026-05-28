@@ -1,88 +1,69 @@
-import type { ThemeFilter } from '../stores/theme'
+import type { ThemeFilter } from "../stores/theme";
+import siteMetaJson from "./ui/site-meta.json";
+import navItemsJson from "./ui/nav-items.json";
+import heroConfigJson from "./ui/hero-config.json";
+import pageTextJson from "./ui/page-text.json";
+import modeTextJson from "./ui/mode-text.json";
+import themePanelTextJson from "./ui/theme-panel-text.json";
+import themeFilterOptionsJson from "./ui/theme-filter-options.json";
+import friendLinksJson from "./ui/friend-links.json";
 
 export type NavItem = {
-  label: string
-  to: string
-}
+  label: string;
+  to: string;
+};
 
 export type FriendLink = {
-  name: string
-  href: string
-}
+  name: string;
+  href: string;
+};
 
-export const siteMeta = {
-  title: 'Gallery Blog',
-  subtitle: '静态博客 / 画廊站点',
-  brandMark: 'G',
-}
+export const siteMeta = siteMetaJson as {
+  title: string;
+  subtitle: string;
+  brandMark: string;
+};
 
-export const navItems: NavItem[] = [
-  { label: '首页', to: '/' },
-  { label: '博文', to: '/blog' },
-  { label: '画廊', to: '/gallery' },
-  { label: '标签', to: '/tag/城市' },
-  { label: '友情链接', to: '/friend' },
-]
+export const navItems = navItemsJson.items as NavItem[];
 
-export const everydayWords = [
-  '把今天的颜色，留给明天。',
-  '创作是和自己耐心相处。',
-  '慢一点，灵感会跟上来。',
-]
+export const heroConfig = heroConfigJson as {
+  kicker: string;
+  title: string;
+  enterText: string;
+};
 
-export const getDailyWord = (date = new Date()) => {
-  const key = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-  let hash = 0
-  for (let i = 0; i < key.length; i += 1) {
-    hash = (hash * 31 + key.charCodeAt(i)) >>> 0
-  }
-  return everydayWords[hash % everydayWords.length]
-}
+export const pageText = pageTextJson as {
+  blogTitle: string;
+  galleryTitle: string;
+  friendTitle: string;
+  pinnedTitle: string;
+  featuredGalleryTitle: string;
+  tagTitlePrefix: string;
+  drawerTitle: string;
+  previousPage: string;
+  nextPage: string;
+};
 
-export const heroConfig = {
-  kicker: 'Gallery Blog',
-  title: 'Gallery Blog',
-  enterText: '进入内容区',
-}
+export const modeText = modeTextJson as {
+  article: string;
+  gallery: string;
+};
 
-export const pageText = {
-  blogTitle: '博文',
-  galleryTitle: '画廊',
-  friendTitle: '友情链接',
-  pinnedTitle: '置顶博文',
-  featuredGalleryTitle: '精选画廊',
-  tagTitle: (tagName: string) => `标签：${tagName}`,
-  drawerTitle: '导航',
-  previousPage: '上一页',
-  nextPage: '下一页',
-}
+export const themePanelText = themePanelTextJson as {
+  title: string;
+  mode: string;
+  light: string;
+  dark: string;
+  themeColor: string;
+  filter: string;
+  radius: string;
+  shadow: string;
+  trigger: string;
+};
 
-export const modeText = {
-  article: '文章模式',
-  gallery: '图片模式',
-}
+export const themeFilterOptions = themeFilterOptionsJson.options as Array<{
+  label: string;
+  value: ThemeFilter;
+}>;
 
-export const themePanelText = {
-  title: '主题设置',
-  mode: '模式',
-  light: '浅色',
-  dark: '深色',
-  themeColor: '主题色',
-  filter: '滤镜',
-  radius: '圆角',
-  shadow: '阴影',
-  trigger: '设',
-}
-
-export const themeFilterOptions: Array<{ label: string; value: ThemeFilter }> = [
-  { label: '无滤镜', value: 'none' },
-  { label: '暖色', value: 'warm' },
-  { label: '灰度', value: 'gray' },
-  { label: '柔和', value: 'soft' },
-]
-
-export const friendLinks: FriendLink[] = [
-  { name: '友站 A', href: '#' },
-  { name: '友站 B', href: '#' },
-]
-
+export const friendLinks = friendLinksJson.items as FriendLink[];

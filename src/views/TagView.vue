@@ -1,28 +1,37 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, onMounted, ref } from 'vue'
 import ContentLayout from '../components/ContentLayout.vue'
 import PageSection from '../components/PageSection.vue'
 import ModeSwitch from '../components/ModeSwitch.vue'
 import ArticleCard from '../components/ArticleCard.vue'
 import GalleryCard from '../components/GalleryCard.vue'
 import PaginationBar from '../components/PaginationBar.vue'
-import { articles, galleryItems } from '../data/site'
+import { getArticles, getGalleryItems, type Article, type GalleryItem } from '../data/site'
 import { pageText } from '../data/ui'
 
-const route = useRoute()
-const mode = ref<'article' | 'gallery'>('article')
-const tagName = computed(() => String(route.params.tagName || ''))
+const props = defineProps<{
+  tag: string
+}>()
 
-const filteredArticles = computed(() => articles.filter((item) => item.tags.includes(tagName.value)))
-const filteredGallery = computed(() => galleryItems.filter((item) => item.tags.includes(tagName.value)))
+const mode = ref<'article' | 'gallery'>('article')
+const articles = ref<Article[]>([])
+const galleryItems = ref<GalleryItem[]>([])
+
+const filteredArticles = computed(() => articles.value.filter((item) => item.tags.includes(props.tag)))
+const filteredGallery = computed(() => galleryItems.value.filter((item) => item.tags.includes(props.tag)))
+
+onMounted(async () => {
+  const [articleList, galleryList] = await Promise.all([getArticles(), getGalleryItems()])
+  articles.value = articleList
+  galleryItems.value = galleryList
+})
 </script>
 
 <template>
   <ContentLayout>
     <PageSection>
       <template #title>
-        <h2>{{ pageText.tagTitle(tagName) }}</h2>
+        <h2>{{ pageText.tagTitlePrefix }}{{ props.tag }}</h2>
       </template>
       <template #action>
         <ModeSwitch v-model="mode" />

@@ -1,10 +1,17 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import ContentLayout from '../components/ContentLayout.vue'
 import PageSection from '../components/PageSection.vue'
 import GalleryCard from '../components/GalleryCard.vue'
 import PaginationBar from '../components/PaginationBar.vue'
-import { galleryItems } from '../data/site'
+import { getGalleryItems, type GalleryItem } from '../data/site'
 import { pageText } from '../data/ui'
+
+const galleryItems = ref<GalleryItem[]>([])
+
+onMounted(async () => {
+  galleryItems.value = await getGalleryItems()
+})
 </script>
 
 <template>

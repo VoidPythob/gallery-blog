@@ -1,61 +1,99 @@
 export type Article = {
-  id: string
-  title: string
-  coverUrl: string
-  tags: string[]
-  isToped: boolean
-  readTime: number
-  introduction: string
-  markdown: string
-}
+  id: string;
+  title: string;
+  coverUrl: string;
+  tags: string[];
+  isToped: boolean;
+  readTime: number;
+  introduction: string;
+  markdown: string;
+};
 
 export type GalleryItem = {
-  id: string
-  title: string
-  imageUrl: string
-  tags: string[]
-  createdAt: string
-}
+  id: string;
+  title: string;
+  imageUrl: string;
+  tags: string[];
+  createdAt: string;
+};
 
-export const articles: Article[] = [
-  {
-    id: 'a-001',
-    title: '雨后街景',
-    coverUrl: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80',
-    tags: ['城市', '夜景'],
-    isToped: true,
-    readTime: 180,
-    introduction: '记录一场雨后城市夜景的光影变化。',
-    markdown: '# 雨后街景',
-  },
-  {
-    id: 'a-002',
-    title: '色彩练习',
-    coverUrl: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=80',
-    tags: ['练习', '人物'],
-    isToped: false,
-    readTime: 240,
-    introduction: '一次关于色彩层次和人物结构的练习。',
-    markdown: '# 色彩练习',
-  },
-]
+export type TagSample = {
+  id: number;
+  name: string;
+};
 
-export const galleryItems: GalleryItem[] = [
-  {
-    id: 'g-001',
-    title: '黄昏山路',
-    imageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
-    tags: ['风景', '黄昏'],
-    createdAt: '2026-05-28',
-  },
-  {
-    id: 'g-002',
-    title: '蓝色海岸',
-    imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
-    tags: ['海边', '风景'],
-    createdAt: '2026-05-27',
-  },
-]
+type DataList<T> = {
+  items: T[];
+};
+type WordList = {
+  words: string[];
+};
 
-export const tagSamples = ['城市', '夜景', '练习', '人物', '风景', '黄昏', '海边']
+const articlesPath = "articles.json";
+const galleryPath = "gallery-items.json";
+const everydayWordsPath = "everyday-words.json";
+const tagSamplesPath = "tag-samples.json";
+const resolvePostsPath = (path: string) => `${import.meta.env.BASE_URL}posts/${path}`;
 
+let articlesCache: Article[] | null = null;
+let galleryCache: GalleryItem[] | null = null;
+let everydayWordsCache: string[] | null = null;
+let tagSamplesCache: TagSample[] | null = null;
+
+const loadJsonList = async <T>(path: string): Promise<T[]> => {
+  try {
+    const response = await fetch(resolvePostsPath(path), { cache: "no-store" });
+    if (!response.ok) {
+      return [];
+    }
+    const data = (await response.json()) as DataList<T>;
+    return Array.isArray(data.items) ? data.items : [];
+  } catch {
+    return [];
+  }
+};
+
+const loadWordList = async (path: string): Promise<string[]> => {
+  try {
+    const response = await fetch(resolvePostsPath(path), { cache: "no-store" });
+    if (!response.ok) {
+      return [];
+    }
+    const data = (await response.json()) as WordList;
+    return Array.isArray(data.words) ? data.words : [];
+  } catch {
+    return [];
+  }
+};
+
+export const getArticles = async () => {
+  if (articlesCache) return articlesCache;
+  articlesCache = await loadJsonList<Article>(articlesPath);
+  return articlesCache;
+};
+
+export const getGalleryItems = async () => {
+  if (galleryCache) return galleryCache;
+  galleryCache = await loadJsonList<GalleryItem>(galleryPath);
+  return galleryCache;
+};
+
+export const getDailyWord = async (date = new Date()) => {
+  if (!everydayWordsCache) {
+    everydayWordsCache = await loadWordList(everydayWordsPath);
+  }
+  if (!everydayWordsCache.length) return "";
+
+  const key = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  let hash = 0;
+  for (let i = 0; i < key.length; i += 1) {
+    hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
+  }
+  return everydayWordsCache[hash % everydayWordsCache.length];
+};
+
+export const getTagSamples = async () => {
+  if (tagSamplesCache) return tagSamplesCache;
+  tagSamplesCache = await loadJsonList<TagSample>(tagSamplesPath);
+  return tagSamplesCache;
+};
