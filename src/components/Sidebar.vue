@@ -1,11 +1,14 @@
 ﻿<script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { navItems, siteMeta } from '../data/ui'
 import { getDailyWord } from '../data/site'
 
 const route = useRoute()
-const activePath = computed(() => route.path)
+const isActive = (to: string) => {
+  if (to === '/') return route.path === '/'
+  return route.path === to || route.path.startsWith(`${to}/`)
+}
 const dailyWord = ref('')
 
 onMounted(async () => {
@@ -34,7 +37,7 @@ onMounted(async () => {
         :key="item.to"
         :to="item.to"
         class="sidebar-link"
-        :class="{ active: activePath === item.to }"
+        :class="{ active: isActive(item.to) }"
       >
         {{ item.label }}
       </RouterLink>

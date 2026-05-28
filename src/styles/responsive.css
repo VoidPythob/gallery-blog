@@ -13,10 +13,14 @@
     display: none;
   }
 
-  .mobile-search-btn {
+  .mobile-searchbar {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+  }
+
+  .mobile-searchbar .search-input {
+    width: clamp(220px, 52vw, 300px);
   }
 
   .content-layout {
@@ -43,6 +47,27 @@
 
   .topbar {
     padding: 10px 12px;
+  }
+
+  .topbar-left {
+    gap: 8px;
+  }
+
+  .topbar-right {
+    justify-content: flex-end;
+  }
+
+  .topbar-brand .brand-title {
+    font-size: 14px;
+  }
+
+  .mobile-searchbar .search-input {
+    width: clamp(210px, 58vw, 300px);
+  }
+
+  .mobile-searchbar .search-suggest {
+    max-height: 52vh;
+    overflow-y: auto;
   }
 
   .hero-panel {

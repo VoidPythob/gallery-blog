@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { Drawer } from 'tdesign-vue-next'
 import SearchBar from './SearchBar.vue'
@@ -9,7 +9,10 @@ const route = useRoute()
 const drawerOpen = ref(false)
 const scrolled = ref(false)
 
-const activePath = computed(() => route.path)
+const isActive = (to: string) => {
+  if (to === '/') return route.path === '/'
+  return route.path === to || route.path.startsWith(`${to}/`)
+}
 
 const onScroll = () => {
   scrolled.value = window.scrollY > 32
@@ -40,7 +43,7 @@ onUnmounted(() => {
         :key="item.to"
         :to="item.to"
         class="topbar-link"
-        :class="{ active: activePath === item.to }"
+        :class="{ active: isActive(item.to) }"
       >
         {{ item.label }}
       </RouterLink>
@@ -48,7 +51,7 @@ onUnmounted(() => {
 
     <div class="topbar-right">
       <SearchBar class="desktop-search" />
-      <button class="icon-btn mobile-search-btn" type="button">?</button>
+      <SearchBar class="mobile-searchbar" />
     </div>
   </header>
 
@@ -71,7 +74,7 @@ onUnmounted(() => {
         :key="item.to"
         :to="item.to"
         class="drawer-link"
-        :class="{ active: activePath === item.to }"
+        :class="{ active: isActive(item.to) }"
         @click="drawerOpen = false"
       >
         {{ item.label }}
