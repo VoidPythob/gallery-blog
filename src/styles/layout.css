@@ -139,6 +139,8 @@
 
 .search-suggest-item.active {
   background: color-mix(in srgb, var(--surface-bg) 88%, var(--page-base-bg));
+  color: var(--accent-text-color);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-color) 36%, var(--surface-border));
 }
 
 .search-suggest-item small {

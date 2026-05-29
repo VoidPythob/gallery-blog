@@ -1,4 +1,4 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { SearchIcon } from 'tdesign-icons-vue-next'
@@ -22,7 +22,17 @@ const candidates = ref<SearchCandidate[]>([])
 
 const normalize = (value: string) => value.trim().toLowerCase()
 
-const baseCandidates: SearchCandidate[] = [
+const dedupeByTo = (list: SearchCandidate[]) => {
+  const map = new Map<string, SearchCandidate>()
+  list.forEach((item) => {
+    if (!map.has(item.to)) {
+      map.set(item.to, item)
+    }
+  })
+  return Array.from(map.values())
+}
+
+const baseCandidates: SearchCandidate[] = dedupeByTo([
   { id: 'page-home', label: '首页', to: '/', type: 'page' },
   { id: 'page-blog', label: pageText.blogTitle, to: '/blog', type: 'page' },
   { id: 'page-gallery', label: pageText.galleryTitle, to: '/gallery', type: 'page' },
@@ -33,25 +43,28 @@ const baseCandidates: SearchCandidate[] = [
     to: item.to,
     type: 'page' as const,
   })),
-]
+])
 
 const loadCandidates = async () => {
   loading.value = true
-  const [articles, galleryItems] = await Promise.all([getArticles(), getGalleryItems()])
-  const articleCandidates: SearchCandidate[] = articles.map((item) => ({
-    id: `article-${item.id}`,
-    label: item.title,
-    to: `/blog/${item.id}`,
-    type: 'article',
-  }))
-  const galleryCandidates: SearchCandidate[] = galleryItems.map((item) => ({
-    id: `gallery-${item.id}`,
-    label: item.title,
-    to: '/gallery',
-    type: 'gallery',
-  }))
-  candidates.value = [...baseCandidates, ...articleCandidates, ...galleryCandidates]
-  loading.value = false
+  try {
+    const [articles, galleryItems] = await Promise.all([getArticles(), getGalleryItems()])
+    const articleCandidates: SearchCandidate[] = articles.map((item) => ({
+      id: `article-${item.id}`,
+      label: item.title,
+      to: `/blog/${item.id}`,
+      type: 'article',
+    }))
+    const galleryCandidates: SearchCandidate[] = galleryItems.map((item) => ({
+      id: `gallery-${item.id}`,
+      label: item.title,
+      to: '/gallery',
+      type: 'gallery',
+    }))
+    candidates.value = [...baseCandidates, ...articleCandidates, ...galleryCandidates]
+  } finally {
+    loading.value = false
+  }
 }
 
 onMounted(() => {
@@ -72,9 +85,7 @@ const fuzzyIncludes = (source: string, query: string) => {
 const filteredCandidates = computed(() => {
   const query = normalize(keyword.value)
   if (!query) return []
-  return candidates.value
-    .filter((item) => fuzzyIncludes(normalize(item.label), query))
-    .slice(0, 8)
+  return candidates.value.filter((item) => fuzzyIncludes(normalize(item.label), query)).slice(0, 8)
 })
 
 const showSuggest = computed(() => {
