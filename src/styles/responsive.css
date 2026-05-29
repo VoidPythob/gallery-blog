@@ -27,12 +27,20 @@
     grid-template-columns: 1fr;
   }
 
+  .waterfall-grid {
+    column-count: 2;
+  }
+
   .sidebar {
     display: none;
   }
 
   .content-main {
     padding-top: 0;
+  }
+
+  .page-list-body {
+    min-height: 46vh;
   }
 }
 
@@ -85,6 +93,14 @@
 
   .content-area {
     padding-top: 0;
+  }
+
+  .page-list-body {
+    min-height: 42vh;
+  }
+
+  .waterfall-grid {
+    column-count: 1;
   }
 
   .theme-settings {

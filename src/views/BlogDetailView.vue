@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import MarkdownIt from 'markdown-it'
 import { ArrowLeftIcon } from 'tdesign-icons-vue-next'
 import ContentLayout from '../components/ContentLayout.vue'
-import { getArticles, type Article } from '../data/site'
+import { getArticles, getTagSamples, type Article, type TagSample } from '../data/site'
 
 const props = defineProps<{
   id: number
@@ -12,6 +12,7 @@ const props = defineProps<{
 
 const router = useRouter()
 const article = ref<Article | null>(null)
+const tags = ref<TagSample[]>([])
 const articleId = computed(() => props.id)
 const markdownIt = new MarkdownIt({
   html: false,
@@ -19,14 +20,17 @@ const markdownIt = new MarkdownIt({
   breaks: true,
 })
 
+const tagNameMap = computed(() => new Map(tags.value.map((item) => [item.id, item.name])))
 const renderedMarkdown = computed(() => {
   if (!article.value) return ''
   return markdownIt.render(article.value.markdown)
 })
+const articleTags = computed(() => article.value?.tagIds.map((id) => ({ id, name: tagNameMap.value.get(id) ?? `标签${id}` })) ?? [])
 
 onMounted(async () => {
-  const list = await getArticles()
+  const [list, tagList] = await Promise.all([getArticles(), getTagSamples()])
   article.value = list.find((item) => item.id === articleId.value) ?? null
+  tags.value = tagList
 })
 </script>
 
@@ -41,7 +45,15 @@ onMounted(async () => {
       <div class="card-cover" style="margin: 12px 0; height: 260px" :style="{ backgroundImage: `url(${article.coverUrl})` }" />
       <p class="desc">{{ article.introduction }}</p>
       <div class="tag-row" style="margin: 10px 0 14px">
-        <span v-for="tag in article.tags" :key="tag" class="tag-chip">{{ tag }}</span>
+        <button
+          v-for="tag in articleTags"
+          :key="tag.id"
+          class="tag-chip tag-chip-link"
+          type="button"
+          @click="router.push(`/tag/${tag.id}`)"
+        >
+          {{ tag.name }}
+        </button>
       </div>
       <article class="markdown-content" v-html="renderedMarkdown" />
     </div>

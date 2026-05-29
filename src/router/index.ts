@@ -29,10 +29,10 @@ const router = createRouter({
           component: () => import("../views/GalleryView.vue"),
         },
         {
-          path: "tag/:tag",
+          path: "tag/:tagId",
           name: "tag",
           component: () => import("../views/TagView.vue"),
-          props: true,
+          props: (route) => ({ tagId: Number(route.params.tagId) }),
         },
         {
           path: "friend",

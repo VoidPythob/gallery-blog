@@ -2,86 +2,98 @@
   "items": [
     {
       "id": 1,
+      "isFeatured": true,
       "title": "黄昏山路",
       "imageUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["风景", "黄昏"],
+      "tagIds": [5, 6],
       "createdAt": "2026-05-28"
     },
     {
       "id": 2,
+      "isFeatured": true,
       "title": "蓝色海岸",
       "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["海边", "风景"],
+      "tagIds": [5, 7],
       "createdAt": "2026-05-27"
     },
     {
       "id": 3,
+      "isFeatured": false,
       "title": "雨后街景",
       "imageUrl": "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["城市", "街景"],
+      "tagIds": [1, 2],
       "createdAt": "2026-05-26"
     },
     {
       "id": 4,
+      "isFeatured": false,
       "title": "森林逆光",
       "imageUrl": "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["森林", "自然"],
+      "tagIds": [5],
       "createdAt": "2026-05-25"
     },
     {
       "id": 5,
+      "isFeatured": false,
       "title": "沙漠公路",
       "imageUrl": "https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["公路", "沙漠"],
+      "tagIds": [5],
       "createdAt": "2026-05-24"
     },
     {
       "id": 6,
+      "isFeatured": false,
       "title": "湖面晨雾",
       "imageUrl": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["湖泊", "晨雾"],
+      "tagIds": [5],
       "createdAt": "2026-05-23"
     },
     {
       "id": 7,
+      "isFeatured": false,
       "title": "冬日雪原",
       "imageUrl": "https://images.unsplash.com/photo-1510824494797-6f7fef7c0a0f?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["雪景", "冬天"],
+      "tagIds": [5],
       "createdAt": "2026-05-22"
     },
     {
       "id": 8,
+      "isFeatured": false,
       "title": "城市夜色",
       "imageUrl": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["夜景", "城市"],
+      "tagIds": [1, 2],
       "createdAt": "2026-05-21"
     },
     {
       "id": 9,
+      "isFeatured": false,
       "title": "海边岩石",
       "imageUrl": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["海边", "岩石"],
+      "tagIds": [5, 7],
       "createdAt": "2026-05-20"
     },
     {
       "id": 10,
+      "isFeatured": false,
       "title": "花田小路",
       "imageUrl": "https://images.unsplash.com/photo-1468327768560-75b778cbb551?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["花田", "田野"],
+      "tagIds": [5],
       "createdAt": "2026-05-19"
     },
     {
       "id": 11,
+      "isFeatured": false,
       "title": "山谷河流",
       "imageUrl": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["山谷", "河流"],
+      "tagIds": [5],
       "createdAt": "2026-05-18"
     },
     {
       "id": 12,
+      "isFeatured": false,
       "title": "日落海岸",
       "imageUrl": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["日落", "海边"],
+      "tagIds": [5, 7],
       "createdAt": "2026-05-17"
     }
   ]

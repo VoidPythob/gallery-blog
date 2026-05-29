@@ -1,4 +1,4 @@
-.topbar {
+﻿.topbar {
   position: sticky;
   top: 0;
   z-index: 30;
@@ -431,6 +431,25 @@
   height: auto;
   border-radius: 0;
   background: transparent;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.gallery-image.is-ready {
+  opacity: 1;
+}
+
+.gallery-image-skeleton {
+  width: 100%;
+  min-height: 180px;
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--surface-bg) 82%, var(--page-base-bg)) 15%,
+    color-mix(in srgb, var(--surface-bg) 92%, var(--page-base-bg)) 35%,
+    color-mix(in srgb, var(--surface-bg) 82%, var(--page-base-bg)) 55%
+  );
+  background-size: 220% 100%;
+  animation: gallerySkeletonShimmer 1.2s ease-in-out infinite;
 }
 
 .gallery-image-fallback {
@@ -513,6 +532,15 @@
   font-size: 12px;
 }
 
+.tag-chip-link {
+  border: 1px solid var(--surface-border);
+  cursor: pointer;
+}
+
+.tag-chip-link:hover {
+  background: color-mix(in srgb, var(--surface-bg) 84%, var(--page-base-bg));
+}
+
 .mode-switch {
   display: flex;
   gap: 8px;
@@ -545,6 +573,15 @@
 .gallery-load-more-trigger {
   width: 100%;
   height: 1px;
+}
+
+@keyframes gallerySkeletonShimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 .friend-list {

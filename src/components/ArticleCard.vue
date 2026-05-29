@@ -1,4 +1,4 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { useRouter } from 'vue-router'
 
 defineProps<{
@@ -6,12 +6,19 @@ defineProps<{
   title: string
   introduction: string
   coverUrl: string
+  tagIds: number[]
   tags: string[]
   isToped: boolean
   readTime: number
 }>()
 
 const router = useRouter()
+
+const onTagClick = (event: MouseEvent, tagId: number) => {
+  event.stopPropagation()
+  if (!tagId) return
+  void router.push(`/tag/${tagId}`)
+}
 </script>
 
 <template>
@@ -30,7 +37,15 @@ const router = useRouter()
       <p class="meta">阅读 {{ Math.ceil(readTime / 60) }} 分钟</p>
       <p class="desc">{{ introduction }}</p>
       <div class="tag-row">
-        <span v-for="tag in tags" :key="tag" class="tag-chip">{{ tag }}</span>
+        <button
+          v-for="(tag, index) in tags"
+          :key="`${tag}-${tagIds[index] ?? index}`"
+          class="tag-chip tag-chip-link"
+          type="button"
+          @click="onTagClick($event, tagIds[index] ?? 0)"
+        >
+          {{ tag }}
+        </button>
       </div>
     </div>
   </article>

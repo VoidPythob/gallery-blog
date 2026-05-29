@@ -3,7 +3,7 @@
     { "label": "首页", "to": "/" },
     { "label": "博文", "to": "/blog" },
     { "label": "画廊", "to": "/gallery" },
-    { "label": "标签", "to": "/tag/城市" },
+    { "label": "标签", "to": "/tag/1" },
     { "label": "友链", "to": "/friend" }
   ]
 }

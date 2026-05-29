@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { ChevronDownIcon } from 'tdesign-icons-vue-next'
 import ContentLayout from '../components/ContentLayout.vue'
 import PageSection from '../components/PageSection.vue'
@@ -11,6 +11,7 @@ import { heroConfig, pageText } from '../data/ui'
 const typedQuote = ref('')
 const articles = ref<Article[]>([])
 const galleryItems = ref<GalleryItem[]>([])
+const featuredGalleryItems = computed(() => galleryItems.value.filter((item) => item.isFeatured))
 
 let timer: number | undefined
 let index = 0
@@ -79,7 +80,7 @@ onBeforeUnmount(() => {
             <h2>{{ pageText.featuredGalleryTitle }}</h2>
           </template>
           <div class="card-grid">
-            <GalleryCard v-for="item in galleryItems" :key="item.id" v-bind="item" />
+            <GalleryCard v-for="item in featuredGalleryItems" :key="item.id" v-bind="item" />
           </div>
         </PageSection>
       </ContentLayout>

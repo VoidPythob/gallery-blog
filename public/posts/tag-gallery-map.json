@@ -1,0 +1,11 @@
+{
+  "items": [
+    { "tagId": 1, "galleryIds": [3, 8] },
+    { "tagId": 2, "galleryIds": [3, 8] },
+    { "tagId": 3, "galleryIds": [] },
+    { "tagId": 4, "galleryIds": [] },
+    { "tagId": 5, "galleryIds": [1, 2, 4, 5, 6, 7, 9, 10, 11, 12] },
+    { "tagId": 6, "galleryIds": [1] },
+    { "tagId": 7, "galleryIds": [2, 9, 12] }
+  ]
+}

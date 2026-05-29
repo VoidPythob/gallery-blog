@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { pageText } from '../data/ui'
+import { Pagination } from 'tdesign-vue-next'
 
 const props = withDefaults(
   defineProps<{
@@ -17,32 +17,23 @@ const emit = defineEmits<{
   (event: 'update:modelValue', value: number): void
 }>()
 
-const totalPages = computed(() => Math.max(1, Math.ceil(props.total / props.pageSize)))
-const currentPage = computed(() => Math.min(Math.max(1, props.modelValue), totalPages.value))
-const pages = computed(() => Array.from({ length: totalPages.value }, (_, i) => i + 1))
-
-const setPage = (page: number) => {
-  const next = Math.min(Math.max(1, page), totalPages.value)
-  emit('update:modelValue', next)
-}
+const current = computed({
+  get: () => props.modelValue,
+  set: (value: number) => emit('update:modelValue', value),
+})
 </script>
 
 <template>
   <div class="pagination-bar">
-    <button class="page-btn" :disabled="currentPage <= 1" @click="setPage(currentPage - 1)">
-      {{ pageText.previousPage }}
-    </button>
-    <button
-      v-for="page in pages"
-      :key="page"
-      class="page-btn"
-      :class="{ active: page === currentPage }"
-      @click="setPage(page)"
-    >
-      {{ page }}
-    </button>
-    <button class="page-btn" :disabled="currentPage >= totalPages" @click="setPage(currentPage + 1)">
-      {{ pageText.nextPage }}
-    </button>
+    <Pagination
+      v-model:current="current"
+      :page-size="pageSize"
+      :total="total"
+      :show-page-number="true"
+      :show-page-size="false"
+      :show-jumper="false"
+      :show-first-and-last-page-btn="false"
+      theme="simple"
+    />
   </div>
 </template>

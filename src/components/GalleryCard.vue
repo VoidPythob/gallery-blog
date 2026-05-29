@@ -1,21 +1,39 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
+import { useRouter } from 'vue-router'
+
 defineProps<{
   title: string
   imageUrl: string
+  tagIds: number[]
   tags: string[]
   createdAt: string
 }>()
+
+const router = useRouter()
+
+const onTagClick = (event: MouseEvent, tagId: number) => {
+  event.stopPropagation()
+  if (!tagId) return
+  void router.push(`/tag/${tagId}`)
+}
 </script>
 
 <template>
-  <article class="content-card gallery-card">
+  <article class="gallery-card-plain">
     <div class="card-cover" :style="{ backgroundImage: `url(${imageUrl})` }" />
     <div class="card-body">
-      <h3>{{ title }}</h3>
-      <p class="meta">{{ createdAt }}</p>
       <div class="tag-row">
-        <span v-for="tag in tags" :key="tag" class="tag-chip">{{ tag }}</span>
+        <button
+          v-for="(tag, index) in tags"
+          :key="`${tag}-${tagIds[index] ?? index}`"
+          class="tag-chip tag-chip-link"
+          type="button"
+          @click="onTagClick($event, tagIds[index] ?? 0)"
+        >
+          {{ tag }}
+        </button>
       </div>
+      <p class="meta">{{ createdAt }}</p>
     </div>
   </article>
 </template>

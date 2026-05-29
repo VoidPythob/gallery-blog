@@ -4,3 +4,29 @@
   }
 }
 
+.route-fade-enter-active,
+.route-fade-leave-active {
+  transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.route-fade-enter-from,
+.route-fade-leave-to {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.route-page .page-section {
+  animation: fadeInUp 0.38s ease both;
+}
+
+.route-page .page-section:nth-child(2) {
+  animation-delay: 0.04s;
+}
+
+.route-page .page-section:nth-child(3) {
+  animation-delay: 0.08s;
+}
+
+.route-page .page-section:nth-child(4) {
+  animation-delay: 0.12s;
+}

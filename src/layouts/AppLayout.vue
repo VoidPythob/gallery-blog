@@ -8,7 +8,15 @@ import ThemeSettings from '../components/ThemeSettings.vue'
     <Topbar />
     <div class="app-content">
       <main class="app-main">
-        <RouterView />
+        <RouterView v-slot="{ Component, route }">
+          <Transition name="route-fade" mode="out-in">
+            <component
+              :is="Component"
+              :key="route.fullPath"
+              class="animate__animated animate__fadeIn animate__faster route-page"
+            />
+          </Transition>
+        </RouterView>
       </main>
     </div>
     <ThemeSettings />

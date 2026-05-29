@@ -30,10 +30,14 @@ watch(articles, () => {
       <template #title>
         <h2>{{ pageText.blogTitle }}</h2>
       </template>
-      <div class="card-grid">
-        <ArticleCard v-for="item in pagedArticles" :key="item.id" v-bind="item" />
+      <div class="page-list-body">
+        <div class="card-grid card-grid-spacious">
+          <ArticleCard v-for="item in pagedArticles" :key="item.id" v-bind="item" />
+        </div>
       </div>
-      <PaginationBar v-model="currentPage" :total="articles.length" :page-size="pageSize" />
+      <div class="page-list-footer">
+        <PaginationBar v-model="currentPage" :total="articles.length" :page-size="pageSize" />
+      </div>
     </PageSection>
   </ContentLayout>
 </template>
