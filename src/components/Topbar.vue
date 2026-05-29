@@ -2,12 +2,15 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { Drawer } from 'tdesign-vue-next'
+import BloggerCard from './BloggerCard.vue'
 import SearchBar from './SearchBar.vue'
 import { navItems, pageText, siteMeta } from '../data/ui'
+import { getBlogger, type BloggerProfile } from '../data/site'
 
 const route = useRoute()
 const drawerOpen = ref(false)
 const scrolled = ref(false)
+const blogger = ref<BloggerProfile | null>(null)
 
 const isActive = (to: string) => {
   if (to === '/') return route.path === '/'
@@ -21,6 +24,9 @@ const onScroll = () => {
 onMounted(() => {
   onScroll()
   window.addEventListener('scroll', onScroll, { passive: true })
+  void (async () => {
+    blogger.value = await getBlogger()
+  })()
 })
 
 onUnmounted(() => {
@@ -64,21 +70,25 @@ onUnmounted(() => {
     size="320px"
   >
     <div class="drawer-panel">
-      <div class="drawer-head">
-        <p class="drawer-title">{{ pageText.drawerTitle }}</p>
-        <button class="icon-btn" type="button" @click="drawerOpen = false">x</button>
+      <div class="drawer-stack">
+        <div class="drawer-head">
+          <p class="drawer-title">{{ pageText.drawerTitle }}</p>
+          <button class="icon-btn" type="button" @click="drawerOpen = false">x</button>
+        </div>
+
+        <RouterLink
+          v-for="item in navItems"
+          :key="item.to"
+          :to="item.to"
+          class="drawer-link"
+          :class="{ active: isActive(item.to) }"
+          @click="drawerOpen = false"
+        >
+          {{ item.label }}
+        </RouterLink>
       </div>
 
-      <RouterLink
-        v-for="item in navItems"
-        :key="item.to"
-        :to="item.to"
-        class="drawer-link"
-        :class="{ active: isActive(item.to) }"
-        @click="drawerOpen = false"
-      >
-        {{ item.label }}
-      </RouterLink>
+      <BloggerCard v-if="blogger" :profile="blogger" />
     </div>
   </Drawer>
 </template>

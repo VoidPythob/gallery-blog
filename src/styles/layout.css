@@ -28,6 +28,49 @@
   gap: 10px;
 }
 
+.blogger-card-core {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.blogger-panel {
+  padding: 16px;
+  border-radius: var(--radius-base);
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-style);
+}
+
+.blogger-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--accent-color);
+  color: #fff;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.blogger-body {
+  min-width: 0;
+}
+
+.blogger-name {
+  margin: 0;
+  font-weight: 700;
+}
+
+.blogger-bio,
+.blogger-meta {
+  margin: 4px 0 0;
+  color: var(--muted-text);
+  font-size: 12px;
+}
+
 .topbar-brand .brand-title,
 .brand-title {
   margin: 0;
@@ -277,6 +320,12 @@
   align-items: start;
 }
 
+.content-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .content-main {
   display: grid;
   gap: 16px;
@@ -287,14 +336,22 @@
 .sidebar {
   position: sticky;
   top: 86px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   border-radius: var(--radius-base);
   padding: 16px;
   background: var(--surface-bg);
   border: 1px solid var(--surface-border);
   backdrop-filter: blur(8px);
-  display: grid;
-  gap: 14px;
   box-shadow: var(--shadow-style);
+}
+
+.sidebar-stack,
+.drawer-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .brand-mark {
@@ -618,9 +675,11 @@
 }
 
 .drawer-panel {
-  display: grid;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   padding: 16px;
+  min-height: 100%;
 }
 
 .drawer-head {
@@ -639,4 +698,8 @@
 .drawer-link.active {
   background: color-mix(in srgb, var(--surface-bg) 88%, var(--page-base-bg));
   color: var(--accent-text-color);
+}
+
+.drawer-panel > .blogger-panel {
+  margin-top: auto;
 }

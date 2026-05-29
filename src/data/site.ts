@@ -25,6 +25,14 @@ export type TagSample = {
   name: string;
 };
 
+export type BloggerProfile = {
+  name: string;
+  bio: string;
+  avatar: string;
+  location: string;
+  status: string;
+};
+
 type DataList<T> = {
   items: T[];
 };
@@ -52,6 +60,7 @@ const everydayWordsPath = "everyday-words.json";
 const tagSamplesPath = "tag-samples.json";
 const tagArticleMapPath = "tag-article-map.json";
 const tagGalleryMapPath = "tag-gallery-map.json";
+const bloggerPath = "blogger.json";
 const resolvePostsPath = (path: string) => `${import.meta.env.BASE_URL}posts/${path}`;
 
 let articlesCache: Article[] | null = null;
@@ -60,6 +69,7 @@ let everydayWordsCache: string[] | null = null;
 let tagSamplesCache: TagSample[] | null = null;
 let tagArticleMapCache: Record<number, number[]> | null = null;
 let tagGalleryMapCache: Record<number, number[]> | null = null;
+let bloggerCache: BloggerProfile | null = null;
 
 const loadJsonList = async <T>(path: string): Promise<T[]> => {
   try {
@@ -206,4 +216,19 @@ export const getTagRelations = async (tagId: number) => {
     articleIds: articleMap[tagId] ?? [],
     galleryIds: galleryMap[tagId] ?? [],
   };
+};
+
+export const getBlogger = async () => {
+  if (bloggerCache) return bloggerCache;
+  try {
+    const response = await fetch(resolvePostsPath(bloggerPath), { cache: "no-store" });
+    if (!response.ok) {
+      bloggerCache = { name: '', bio: '', avatar: '', location: '', status: '' };
+      return bloggerCache;
+    }
+    bloggerCache = (await response.json()) as BloggerProfile;
+  } catch {
+    bloggerCache = { name: '', bio: '', avatar: '', location: '', status: '' };
+  }
+  return bloggerCache;
 };

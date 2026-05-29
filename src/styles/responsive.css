@@ -27,12 +27,21 @@
     grid-template-columns: 1fr;
   }
 
+  .content-aside {
+    display: none;
+  }
+
   .waterfall-grid {
     column-count: 2;
   }
 
   .sidebar {
     display: none;
+  }
+
+  .drawer-panel {
+    min-height: calc(100vh - 32px);
+    overflow-y: auto;
   }
 
   .content-main {
