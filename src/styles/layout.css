@@ -425,6 +425,15 @@
   width: 100%;
   margin: 0 0 12px;
   break-inside: avoid;
+  cursor: pointer;
+  transform: perspective(1200px) rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg)) scale(var(--tilt-scale, 1));
+  transform-origin: center center;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  will-change: transform;
+}
+
+.gallery-image-frame:hover {
+  box-shadow: 0 22px 48px color-mix(in srgb, var(--text-color) 18%, transparent);
 }
 
 .gallery-image {
@@ -435,6 +444,7 @@
   background: transparent;
   opacity: 0;
   transition: opacity 0.22s ease;
+  pointer-events: none;
 }
 
 .gallery-image.is-ready {
@@ -575,6 +585,15 @@
 .gallery-load-more-trigger {
   width: 100%;
   height: 1px;
+}
+
+.gallery-detail-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 12px;
+  min-height: 320px;
+  cursor: zoom-in;
 }
 
 @keyframes gallerySkeletonShimmer {

@@ -29,6 +29,12 @@ const router = createRouter({
           component: () => import("../views/GalleryView.vue"),
         },
         {
+          path: "gallery/:id",
+          name: "gallery-detail",
+          component: () => import("../views/GalleryDetailView.vue"),
+          props: (route) => ({ id: Number(route.params.id) }),
+        },
+        {
           path: "tag/:tagId",
           name: "tag",
           component: () => import("../views/TagView.vue"),
