@@ -29,6 +29,11 @@ const router = createRouter({
           component: () => import("../views/GalleryView.vue"),
         },
         {
+          path: "timeline",
+          name: "timeline",
+          component: () => import("../views/TimelineView.vue"),
+        },
+        {
           path: "gallery/:id",
           name: "gallery-detail",
           component: () => import("../views/GalleryDetailView.vue"),

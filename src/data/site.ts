@@ -1,5 +1,6 @@
-export type Article = {
+﻿export type Article = {
   id: number;
+  createdAt: string;
   title: string;
   coverUrl: string;
   tagIds: number[];
@@ -33,34 +34,55 @@ export type BloggerProfile = {
   status: string;
 };
 
+export type TimelineEntry = {
+  id: string;
+  title: string;
+  date: string;
+  year: number;
+  type: 'article' | 'gallery';
+  href: string;
+  tags: string[];
+  summary: string;
+  imageUrl: string;
+};
+
 type DataList<T> = {
   items: T[];
 };
+
 type WordList = {
   words: string[];
 };
+
 type TagArticleMapItem = {
   tagId: number;
   articleIds: number[];
 };
+
 type TagGalleryMapItem = {
   tagId: number;
   galleryIds: number[];
 };
+
 type TagArticleMap = {
   items: TagArticleMapItem[];
 };
+
 type TagGalleryMap = {
   items: TagGalleryMapItem[];
 };
 
-const articlesPath = "articles.json";
-const galleryPath = "gallery-items.json";
-const everydayWordsPath = "everyday-words.json";
-const tagSamplesPath = "tag-samples.json";
-const tagArticleMapPath = "tag-article-map.json";
-const tagGalleryMapPath = "tag-gallery-map.json";
-const bloggerPath = "blogger.json";
+type TimelineEntryRecord = TimelineEntry & {
+  sortTime: number;
+};
+
+const articlesPath = 'articles.json';
+const galleryPath = 'gallery-items.json';
+const everydayWordsPath = 'everyday-words.json';
+const tagSamplesPath = 'tag-samples.json';
+const tagArticleMapPath = 'tag-article-map.json';
+const tagGalleryMapPath = 'tag-gallery-map.json';
+const bloggerPath = 'blogger.json';
 const resolvePostsPath = (path: string) => `${import.meta.env.BASE_URL}posts/${path}`;
 
 let articlesCache: Article[] | null = null;
@@ -70,13 +92,12 @@ let tagSamplesCache: TagSample[] | null = null;
 let tagArticleMapCache: Record<number, number[]> | null = null;
 let tagGalleryMapCache: Record<number, number[]> | null = null;
 let bloggerCache: BloggerProfile | null = null;
+let timelineCache: TimelineEntry[] | null = null;
 
 const loadJsonList = async <T>(path: string): Promise<T[]> => {
   try {
-    const response = await fetch(resolvePostsPath(path), { cache: "no-store" });
-    if (!response.ok) {
-      return [];
-    }
+    const response = await fetch(resolvePostsPath(path), { cache: 'no-store' });
+    if (!response.ok) return [];
     const data = (await response.json()) as DataList<T>;
     return Array.isArray(data.items) ? data.items : [];
   } catch {
@@ -86,10 +107,8 @@ const loadJsonList = async <T>(path: string): Promise<T[]> => {
 
 const loadWordList = async (path: string): Promise<string[]> => {
   try {
-    const response = await fetch(resolvePostsPath(path), { cache: "no-store" });
-    if (!response.ok) {
-      return [];
-    }
+    const response = await fetch(resolvePostsPath(path), { cache: 'no-store' });
+    if (!response.ok) return [];
     const data = (await response.json()) as WordList;
     return Array.isArray(data.words) ? data.words : [];
   } catch {
@@ -100,7 +119,7 @@ const loadWordList = async (path: string): Promise<string[]> => {
 const loadTagArticleMap = async () => {
   if (tagArticleMapCache) return tagArticleMapCache;
   try {
-    const response = await fetch(resolvePostsPath(tagArticleMapPath), { cache: "no-store" });
+    const response = await fetch(resolvePostsPath(tagArticleMapPath), { cache: 'no-store' });
     if (!response.ok) {
       tagArticleMapCache = {};
       return tagArticleMapCache;
@@ -117,7 +136,7 @@ const loadTagArticleMap = async () => {
 const loadTagGalleryMap = async () => {
   if (tagGalleryMapCache) return tagGalleryMapCache;
   try {
-    const response = await fetch(resolvePostsPath(tagGalleryMapPath), { cache: "no-store" });
+    const response = await fetch(resolvePostsPath(tagGalleryMapPath), { cache: 'no-store' });
     if (!response.ok) {
       tagGalleryMapCache = {};
       return tagGalleryMapCache;
@@ -137,10 +156,15 @@ const resolveTagNames = async (tagIds: number[]) => {
   return tagIds.map((id) => nameMap.get(id)).filter((name): name is string => Boolean(name));
 };
 
+const resolveYear = (value: string, fallback: number) => {
+  const parsed = Number.parseInt(value.slice(0, 4), 10);
+  return Number.isFinite(parsed) ? parsed : fallback;
+};
+
 export const getArticles = async () => {
   if (articlesCache) return articlesCache;
   const [rawArticles, tagArticleMap] = await Promise.all([
-    loadJsonList<Omit<Article, "tags">>(articlesPath),
+    loadJsonList<Omit<Article, 'tags'>>(articlesPath),
     loadTagArticleMap(),
   ]);
   const mapByArticle = new Map<number, number[]>();
@@ -166,7 +190,7 @@ export const getArticles = async () => {
 export const getGalleryItems = async () => {
   if (galleryCache) return galleryCache;
   const [rawGallery, tagGalleryMap] = await Promise.all([
-    loadJsonList<Omit<GalleryItem, "tags">>(galleryPath),
+    loadJsonList<Omit<GalleryItem, 'tags'>>(galleryPath),
     loadTagGalleryMap(),
   ]);
   const mapByGallery = new Map<number, number[]>();
@@ -194,7 +218,7 @@ export const getDailyWord = async (date = new Date()) => {
   if (!everydayWordsCache) {
     everydayWordsCache = await loadWordList(everydayWordsPath);
   }
-  if (!everydayWordsCache.length) return "";
+  if (!everydayWordsCache.length) return '';
 
   const key = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   let hash = 0;
@@ -221,7 +245,7 @@ export const getTagRelations = async (tagId: number) => {
 export const getBlogger = async () => {
   if (bloggerCache) return bloggerCache;
   try {
-    const response = await fetch(resolvePostsPath(bloggerPath), { cache: "no-store" });
+    const response = await fetch(resolvePostsPath(bloggerPath), { cache: 'no-store' });
     if (!response.ok) {
       bloggerCache = { name: '', bio: '', avatar: '', location: '', status: '' };
       return bloggerCache;
@@ -231,4 +255,37 @@ export const getBlogger = async () => {
     bloggerCache = { name: '', bio: '', avatar: '', location: '', status: '' };
   }
   return bloggerCache;
+};
+
+export const getTimelineEntries = async () => {
+  if (timelineCache) return timelineCache;
+  const [articles, galleryItems] = await Promise.all([getArticles(), getGalleryItems()]);
+  const articleEntries: TimelineEntryRecord[] = articles.map((item) => ({
+    id: `article-${item.id}`,
+    title: item.title,
+    date: item.createdAt || '',
+    year: resolveYear(item.createdAt || '', item.id),
+    type: 'article',
+    href: `/blog/${item.id}`,
+    tags: item.tags,
+    summary: item.introduction,
+    imageUrl: item.coverUrl,
+    sortTime: Date.parse(item.createdAt) || item.id,
+  }));
+  const galleryEntries: TimelineEntryRecord[] = galleryItems.map((item) => ({
+    id: `gallery-${item.id}`,
+    title: item.title,
+    date: item.createdAt,
+    year: resolveYear(item.createdAt, item.id),
+    type: 'gallery',
+    href: `/gallery/${item.id}`,
+    tags: item.tags,
+    summary: item.isFeatured ? '精选画廊' : '画廊作品',
+    imageUrl: item.imageUrl,
+    sortTime: Date.parse(item.createdAt) || item.id,
+  }));
+  timelineCache = [...articleEntries, ...galleryEntries]
+    .sort((a, b) => b.sortTime - a.sortTime)
+    .map(({ sortTime: _sortTime, ...entry }) => entry);
+  return timelineCache;
 };

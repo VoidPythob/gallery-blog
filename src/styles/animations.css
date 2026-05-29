@@ -15,6 +15,17 @@
   transform: translateY(6px);
 }
 
+.route-none-enter-active,
+.route-none-leave-active {
+  transition: none;
+}
+
+.route-none-enter-from,
+.route-none-leave-to {
+  opacity: 1;
+  transform: none;
+}
+
 .route-page .page-section {
   animation: fadeInUp 0.38s ease both;
 }
@@ -29,4 +40,9 @@
 
 .route-page .page-section:nth-child(4) {
   animation-delay: 0.12s;
+}
+
+.route-page-timeline,
+.route-page-timeline * {
+  animation: none !important;
 }

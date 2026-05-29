@@ -7,7 +7,7 @@ import modeTextJson from "./ui/mode-text.json";
 import themePanelTextJson from "./ui/theme-panel-text.json";
 import themeFilterOptionsJson from "./ui/theme-filter-options.json";
 import friendLinksJson from "./ui/friend-links.json";
-import { ArticleIcon, HomeIcon, ImageIcon, LinkIcon, TagIcon } from "tdesign-icons-vue-next";
+import { ArticleIcon, HomeIcon, ImageIcon, LinkIcon, TagIcon, TimeIcon } from "tdesign-icons-vue-next";
 
 export type NavItem = {
   label: string;
@@ -15,7 +15,7 @@ export type NavItem = {
   icon: NavIconName;
 };
 
-export type NavIconName = "HomeIcon" | "ArticleIcon" | "ImageIcon" | "TagIcon" | "LinkIcon";
+export type NavIconName = "HomeIcon" | "ArticleIcon" | "ImageIcon" | "TagIcon" | "LinkIcon" | "TimeIcon";
 
 export type FriendLink = {
   name: string;
@@ -35,6 +35,7 @@ export const navIconMap = {
   ImageIcon,
   TagIcon,
   LinkIcon,
+  TimeIcon,
 } as const;
 
 export const heroConfig = heroConfigJson as {
@@ -49,6 +50,7 @@ export const pageText = pageTextJson as {
   friendTitle: string;
   pinnedTitle: string;
   featuredGalleryTitle: string;
+  timelineTitle: string;
   tagTitlePrefix: string;
   drawerTitle: string;
   previousPage: string;

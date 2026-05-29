@@ -3,6 +3,7 @@
     { "label": "首页", "to": "/", "icon": "HomeIcon" },
     { "label": "博文", "to": "/blog", "icon": "ArticleIcon" },
     { "label": "画廊", "to": "/gallery", "icon": "ImageIcon" },
+    { "label": "时间线", "to": "/timeline", "icon": "TimeIcon" },
     { "label": "标签", "to": "/tag/1", "icon": "TagIcon" },
     { "label": "友链", "to": "/friend", "icon": "LinkIcon" }
   ]

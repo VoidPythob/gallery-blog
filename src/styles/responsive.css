@@ -48,8 +48,65 @@
     padding-top: 0;
   }
 
-  .page-list-body {
-    min-height: 46vh;
+  .timeline-inner {
+    padding-top: calc(var(--topbar-height) + 56px);
+  }
+
+  .timeline-layout {
+    width: min(100%, calc(100vw - 24px));
+    display: block;
+  }
+
+  .timeline-line {
+    display: none;
+  }
+
+  .timeline-node {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-left: 0;
+    min-height: 0;
+  }
+
+  .timeline-pane.is-left,
+  .timeline-pane.is-right {
+    justify-content: flex-start;
+    padding: 0;
+  }
+
+  .timeline-pane-image,
+  .timeline-pane-content,
+  .timeline-row-left .timeline-pane-image,
+  .timeline-row-left .timeline-pane-content,
+  .timeline-row-right .timeline-pane-image,
+  .timeline-row-right .timeline-pane-content,
+  .timeline-row.is-active .timeline-pane-image,
+  .timeline-row.is-active .timeline-pane-content {
+    transform: none;
+  }
+
+  .timeline-row,
+  .timeline-row.is-active {
+    opacity: 1;
+    filter: none;
+  }
+
+  .timeline-item,
+  .timeline-image {
+    width: 100%;
+  }
+
+  .timeline-image {
+    height: 220px;
+  }
+
+  .timeline-stack {
+    gap: 18px;
+    padding-bottom: 22vh;
+  }
+
+  .timeline-tail-spacer {
+    height: 20vh;
   }
 }
 
@@ -104,8 +161,69 @@
     padding-top: 0;
   }
 
-  .page-list-body {
-    min-height: 42vh;
+  .timeline-inner {
+    padding-top: calc(var(--topbar-height) + 44px);
+  }
+
+  .timeline-layout {
+    width: min(100%, calc(100vw - 24px));
+    display: block;
+  }
+
+  .timeline-line {
+    display: none;
+  }
+
+  .timeline-node {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding-left: 0;
+    min-height: 0;
+  }
+
+  .timeline-pane.is-left,
+  .timeline-pane.is-right {
+    justify-content: flex-start;
+    padding: 0;
+  }
+
+  .timeline-pane-image,
+  .timeline-pane-content,
+  .timeline-row-left .timeline-pane-image,
+  .timeline-row-left .timeline-pane-content,
+  .timeline-row-right .timeline-pane-image,
+  .timeline-row-right .timeline-pane-content,
+  .timeline-row.is-active .timeline-pane-image,
+  .timeline-row.is-active .timeline-pane-content {
+    transform: none;
+  }
+
+  .timeline-row,
+  .timeline-row.is-active {
+    opacity: 1;
+    filter: none;
+  }
+
+  .timeline-item,
+  .timeline-image {
+    width: 100%;
+  }
+
+  .timeline-image {
+    height: 190px;
+  }
+
+  .timeline-date {
+    font-size: 13px;
+  }
+
+  .timeline-stack {
+    gap: 16px;
+    padding-bottom: 18vh;
+  }
+
+  .timeline-tail-spacer {
+    height: 16vh;
   }
 
   .waterfall-grid {
