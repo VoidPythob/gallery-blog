@@ -6,7 +6,7 @@ import ModeSwitch from '../components/ModeSwitch.vue'
 import ArticleCard from '../components/ArticleCard.vue'
 import GalleryCard from '../components/GalleryCard.vue'
 import PaginationBar from '../components/PaginationBar.vue'
-import { getArticles, getGalleryItems, getTagRelations, getTagSamples, type Article, type GalleryItem, type TagSample } from '../data/site'
+import { getArticles, getGalleryItems, getTagSamples, type Article, type GalleryItem, type TagSample } from '../data/site'
 import { pageText } from '../data/ui'
 
 const props = defineProps<{
@@ -20,17 +20,13 @@ const galleryPage = ref(1)
 const articles = ref<Article[]>([])
 const galleryItems = ref<GalleryItem[]>([])
 const tags = ref<TagSample[]>([])
-const relatedArticleIds = ref<number[]>([])
-const relatedGalleryIds = ref<number[]>([])
 
 const currentTagName = computed(() => tags.value.find((item) => item.id === props.tagId)?.name ?? `标签${props.tagId}`)
 const filteredArticles = computed(() => {
-  const idSet = new Set(relatedArticleIds.value)
-  return articles.value.filter((item) => idSet.has(item.id))
+  return articles.value.filter((item) => item.tagIds.includes(props.tagId))
 })
 const filteredGallery = computed(() => {
-  const idSet = new Set(relatedGalleryIds.value)
-  return galleryItems.value.filter((item) => idSet.has(item.id))
+  return galleryItems.value.filter((item) => item.tagIds.includes(props.tagId))
 })
 
 const pagedArticles = computed(() => {
@@ -44,9 +40,6 @@ const pagedGallery = computed(() => {
 })
 
 const refreshRelations = async () => {
-  const relations = await getTagRelations(props.tagId)
-  relatedArticleIds.value = relations.articleIds
-  relatedGalleryIds.value = relations.galleryIds
   articlePage.value = 1
   galleryPage.value = 1
 }

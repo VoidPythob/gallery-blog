@@ -30,6 +30,10 @@
   animation: fadeInUp 0.38s ease both;
 }
 
+.home-content-static .page-section {
+  animation: none !important;
+}
+
 .route-page .page-section:nth-child(2) {
   animation-delay: 0.04s;
 }

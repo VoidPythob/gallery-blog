@@ -16,6 +16,7 @@ type SearchCandidate = {
 const router = useRouter()
 const keyword = ref('')
 const focused = ref(false)
+const suggestOpen = ref(false)
 const loading = ref(false)
 const activeIndex = ref(-1)
 const candidates = ref<SearchCandidate[]>([])
@@ -91,16 +92,28 @@ const filteredCandidates = computed(() => {
 const showSuggest = computed(() => {
   const query = normalize(keyword.value)
   if (!query) return false
-  return focused.value && (loading.value || filteredCandidates.value.length > 0)
+  return suggestOpen.value && (loading.value || filteredCandidates.value.length > 0)
 })
 
 watch(filteredCandidates, (list) => {
   activeIndex.value = list.length ? 0 : -1
 })
 
+watch(keyword, (value) => {
+  if (value.trim()) {
+    suggestOpen.value = true
+    return
+  }
+  if (!value.trim()) {
+    suggestOpen.value = false
+    activeIndex.value = -1
+  }
+})
+
 const goTo = async (item: SearchCandidate, text: string) => {
   keyword.value = text
   focused.value = false
+  suggestOpen.value = false
   await router.push(item.to)
   MessagePlugin.success(`搜索成功：${item.label}`)
 }
@@ -130,6 +143,7 @@ const handleSearch = async () => {
     MessagePlugin.error('请输入搜索关键词')
     return
   }
+  suggestOpen.value = true
   if (loading.value) {
     MessagePlugin.warning('搜索索引加载中，请稍后重试')
     return
@@ -166,15 +180,34 @@ const onKeydown = async (event: KeyboardEvent) => {
     }
   }
 }
+
+const onFocus = () => {
+  focused.value = true
+  if (keyword.value.trim()) {
+    suggestOpen.value = true
+  }
+}
+
+const onBlur = () => {
+  focused.value = false
+  suggestOpen.value = false
+}
+
+const onInput = () => {
+  suggestOpen.value = true
+}
 </script>
 
 <template>
-  <div class="search-bar" @focusin="focused = true" @focusout="focused = false">
+  <div class="search-bar">
     <input
       v-model="keyword"
       class="search-input"
       type="search"
       placeholder="搜索页面/博文/画廊"
+      @focus="onFocus"
+      @blur="onBlur"
+      @input="onInput"
       @keydown="onKeydown"
     />
     <button class="icon-btn search-btn" type="button" aria-label="搜索" @click="handleSearch">

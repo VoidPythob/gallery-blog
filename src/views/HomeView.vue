@@ -8,10 +8,14 @@ import GalleryCard from '../components/GalleryCard.vue'
 import { getArticles, getDailyWord, getGalleryItems, type Article, type GalleryItem } from '../data/site'
 import { heroConfig, pageText } from '../data/ui'
 
+const HOME_CONTENT_ANIMATED_KEY = 'home-content-animated'
+
 const typedQuote = ref('')
 const articles = ref<Article[]>([])
 const galleryItems = ref<GalleryItem[]>([])
 const featuredGalleryItems = computed(() => galleryItems.value.filter((item) => item.isFeatured))
+const enableContentAnimation = ref(false)
+const heroScrollClicked = ref(false)
 
 let timer: number | undefined
 let index = 0
@@ -33,6 +37,7 @@ const step = () => {
 }
 
 onMounted(() => {
+  enableContentAnimation.value = !window.sessionStorage.getItem(HOME_CONTENT_ANIMATED_KEY)
   void (async () => {
     const [word, articleList, galleryList] = await Promise.all([getDailyWord(), getArticles(), getGalleryItems()])
     dailyQuote = word
@@ -47,6 +52,15 @@ onBeforeUnmount(() => {
     window.clearTimeout(timer)
   }
 })
+
+const handleEnterContent = () => {
+  if (heroScrollClicked.value) {
+    return
+  }
+  heroScrollClicked.value = true
+  enableContentAnimation.value = false
+  window.sessionStorage.setItem(HOME_CONTENT_ANIMATED_KEY, '1')
+}
 </script>
 
 <template>
@@ -59,12 +73,12 @@ onBeforeUnmount(() => {
           <span class="typing-line">{{ typedQuote }}</span><span class="typing-caret">|</span>
         </div>
       </div>
-      <a class="hero-scroll" href="#home-content" :aria-label="heroConfig.enterText">
+      <a class="hero-scroll" href="#home-content" :aria-label="heroConfig.enterText" @click="handleEnterContent">
         <ChevronDownIcon />
       </a>
     </section>
 
-    <section id="home-content" class="content-area">
+    <section id="home-content" class="content-area" :class="{ 'home-content-static': !enableContentAnimation }">
       <ContentLayout>
         <PageSection>
           <template #title>
