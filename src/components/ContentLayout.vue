@@ -1,4 +1,4 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { getBlogger, type BloggerProfile } from '../data/site'
 import Sidebar from './Sidebar.vue'

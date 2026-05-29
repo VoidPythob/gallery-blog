@@ -1,9 +1,9 @@
 ﻿{
   "items": [
-    { "label": "首页", "to": "/" },
-    { "label": "博文", "to": "/blog" },
-    { "label": "画廊", "to": "/gallery" },
-    { "label": "标签", "to": "/tag/1" },
-    { "label": "友链", "to": "/friend" }
+    { "label": "首页", "to": "/", "icon": "HomeIcon" },
+    { "label": "博文", "to": "/blog", "icon": "ArticleIcon" },
+    { "label": "画廊", "to": "/gallery", "icon": "ImageIcon" },
+    { "label": "标签", "to": "/tag/1", "icon": "TagIcon" },
+    { "label": "友链", "to": "/friend", "icon": "LinkIcon" }
   ]
 }

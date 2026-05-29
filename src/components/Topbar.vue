@@ -1,10 +1,10 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { Drawer } from 'tdesign-vue-next'
 import BloggerCard from './BloggerCard.vue'
 import SearchBar from './SearchBar.vue'
-import { navItems, pageText, siteMeta } from '../data/ui'
+import { navIconMap, navItems, pageText, siteMeta } from '../data/ui'
 import { getBlogger, type BloggerProfile } from '../data/site'
 
 const route = useRoute()
@@ -51,6 +51,7 @@ onUnmounted(() => {
         class="topbar-link"
         :class="{ active: isActive(item.to) }"
       >
+        <component :is="navIconMap[item.icon]" class="nav-icon" />
         {{ item.label }}
       </RouterLink>
     </nav>
@@ -84,6 +85,7 @@ onUnmounted(() => {
           :class="{ active: isActive(item.to) }"
           @click="drawerOpen = false"
         >
+          <component :is="navIconMap[item.icon]" class="nav-icon" />
           {{ item.label }}
         </RouterLink>
       </div>

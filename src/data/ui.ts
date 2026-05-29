@@ -7,11 +7,15 @@ import modeTextJson from "./ui/mode-text.json";
 import themePanelTextJson from "./ui/theme-panel-text.json";
 import themeFilterOptionsJson from "./ui/theme-filter-options.json";
 import friendLinksJson from "./ui/friend-links.json";
+import { ArticleIcon, HomeIcon, ImageIcon, LinkIcon, TagIcon } from "tdesign-icons-vue-next";
 
 export type NavItem = {
   label: string;
   to: string;
+  icon: NavIconName;
 };
+
+export type NavIconName = "HomeIcon" | "ArticleIcon" | "ImageIcon" | "TagIcon" | "LinkIcon";
 
 export type FriendLink = {
   name: string;
@@ -25,6 +29,13 @@ export const siteMeta = siteMetaJson as {
 };
 
 export const navItems = navItemsJson.items as NavItem[];
+export const navIconMap = {
+  HomeIcon,
+  ArticleIcon,
+  ImageIcon,
+  TagIcon,
+  LinkIcon,
+} as const;
 
 export const heroConfig = heroConfigJson as {
   kicker: string;

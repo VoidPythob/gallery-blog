@@ -1,7 +1,7 @@
 ﻿<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { navItems, siteMeta } from '../data/ui'
+import { navIconMap, navItems, siteMeta } from '../data/ui'
 import { getDailyWord } from '../data/site'
 
 const route = useRoute()
@@ -39,6 +39,7 @@ onMounted(async () => {
         class="sidebar-link"
         :class="{ active: isActive(item.to) }"
       >
+        <component :is="navIconMap[item.icon]" class="nav-icon" />
         {{ item.label }}
       </RouterLink>
     </nav>
