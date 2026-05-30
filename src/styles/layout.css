@@ -645,6 +645,155 @@
   padding-top: 4px;
 }
 
+.pagination-bar .theme-pagination {
+  --td-text-color-primary: var(--text-color);
+  --td-text-color-secondary: var(--text-color);
+  --td-text-color-disabled: var(--muted-text);
+  --td-text-color-anti: var(--page-base-bg);
+  --td-bg-color-container: color-mix(in srgb, var(--surface-bg) 92%, var(--page-base-bg));
+  --td-bg-color-component-disabled: color-mix(in srgb, var(--surface-bg) 78%, var(--page-base-bg));
+  --td-bg-color-secondarycontainer: color-mix(in srgb, var(--surface-bg) 88%, var(--page-base-bg));
+  --td-bg-color-secondarycontainer-hover: color-mix(in srgb, var(--surface-bg) 96%, var(--page-base-bg));
+  --td-bg-color-secondarycontainer-active: color-mix(in srgb, var(--surface-bg) 90%, var(--page-base-bg));
+  --td-component-border: color-mix(in srgb, var(--surface-border) 92%, transparent);
+  --td-brand-color: var(--accent-text-color);
+  --td-brand-color-hover: var(--accent-text-color);
+  --td-brand-color-focus: color-mix(in srgb, var(--accent-text-color) 72%, var(--surface-bg));
+}
+
+.pagination-bar .t-pagination {
+  color: var(--text-color);
+}
+
+.pagination-bar .t-pagination__btn,
+.pagination-bar .t-pagination__number,
+.pagination-bar .t-pagination__number--more {
+  background: color-mix(in srgb, var(--surface-bg) 92%, var(--page-base-bg)) !important;
+  border: 1px solid color-mix(in srgb, var(--surface-border) 92%, transparent) !important;
+  color: var(--text-color) !important;
+  box-shadow: none !important;
+}
+
+.pagination-bar .t-pagination__btn:hover,
+.pagination-bar .t-pagination__number:hover,
+.pagination-bar .t-pagination__number--more:hover {
+  background: color-mix(in srgb, var(--surface-bg) 98%, var(--page-base-bg)) !important;
+  color: var(--text-color) !important;
+}
+
+.pagination-bar .t-pagination__number.t-is-current {
+  background: color-mix(in srgb, var(--surface-bg) 86%, var(--page-base-bg)) !important;
+  border-color: color-mix(in srgb, var(--surface-border) 96%, transparent) !important;
+  color: var(--accent-text-color) !important;
+}
+
+.pagination-bar .t-pagination__btn.t-is-disabled,
+.pagination-bar .t-pagination__btn.t-is-disabled:hover,
+.pagination-bar .t-pagination__number.t-is-disabled,
+.pagination-bar .t-pagination__number.t-is-disabled:hover,
+.pagination-bar .t-pagination__number--more.t-is-disabled,
+.pagination-bar .t-pagination__number--more.t-is-disabled:hover {
+  background: color-mix(in srgb, var(--surface-bg) 80%, var(--page-base-bg)) !important;
+  border-color: color-mix(in srgb, var(--surface-border) 80%, transparent) !important;
+  color: var(--muted-text) !important;
+  opacity: 0.7;
+}
+
+.pagination-bar .t-pagination__btn .t-icon,
+.pagination-bar .t-pagination__number .t-icon,
+.pagination-bar .t-pagination__number--more .t-icon {
+  color: inherit !important;
+}
+
+.pagination-bar .t-pagination.t-size-s .t-pagination__number {
+  background: color-mix(in srgb, var(--surface-bg) 92%, var(--page-base-bg)) !important;
+  color: var(--text-color) !important;
+}
+
+.pagination-bar .t-pagination.t-size-s .t-pagination__number:hover:not(.t-pagination__number.t-is-current) {
+  background: color-mix(in srgb, var(--surface-bg) 98%, var(--page-base-bg)) !important;
+  color: var(--text-color) !important;
+}
+
+.pagination-bar .t-pagination.t-size-s .t-pagination__number:active:not(.t-pagination__number.t-is-current) {
+  background: color-mix(in srgb, var(--surface-bg) 96%, var(--page-base-bg)) !important;
+  color: var(--text-color) !important;
+}
+
+.pagination-bar .t-pagination.t-size-s .t-pagination__number.t-is-current {
+  background: color-mix(in srgb, var(--surface-bg) 84%, var(--page-base-bg)) !important;
+  border-color: color-mix(in srgb, var(--surface-border) 96%, transparent) !important;
+  color: var(--accent-text-color) !important;
+}
+
+.pagination-bar .t-pagination.t-size-s .t-pagination__number.t-is-current.t-is-disabled {
+  background: color-mix(in srgb, var(--surface-bg) 80%, var(--page-base-bg)) !important;
+  border-color: color-mix(in srgb, var(--surface-border) 88%, transparent) !important;
+  color: var(--muted-text) !important;
+}
+
+.pagination-bar .t-pagination.t-size-s .t-pagination__number.t-is-disabled,
+.pagination-bar .t-pagination.t-size-s .t-pagination__number.t-is-disabled:hover,
+.pagination-bar .t-pagination.t-size-s .t-pagination__number.t-is-disabled:active {
+  background: transparent !important;
+  color: var(--muted-text) !important;
+}
+
+.pagination-bar .t-pagination.t-size-s .t-pagination__btn {
+  background: color-mix(in srgb, var(--surface-bg) 92%, var(--page-base-bg)) !important;
+  color: var(--text-color) !important;
+}
+
+.pagination-bar .t-pagination.t-size-s .t-pagination__btn:hover {
+  background: color-mix(in srgb, var(--surface-bg) 98%, var(--page-base-bg)) !important;
+}
+
+.pagination-bar .t-pagination.t-size-s .t-pagination__btn:active {
+  background: color-mix(in srgb, var(--surface-bg) 96%, var(--page-base-bg)) !important;
+}
+
+.pagination-bar .t-pagination.t-size-s .t-pagination__btn.t-is-disabled,
+.pagination-bar .t-pagination.t-size-s .t-pagination__btn.t-is-disabled:hover,
+.pagination-bar .t-pagination.t-size-s .t-pagination__btn.t-is-disabled:active {
+  background: transparent !important;
+  color: var(--muted-text) !important;
+}
+
+.pagination-bar .t-pagination__select,
+.pagination-bar .t-pagination__jump,
+.pagination-bar .t-pagination__total,
+.pagination-bar .t-pagination .t-input-adornment__append .t-input-adornment__text {
+  color: var(--text-color) !important;
+}
+
+.pagination-bar .theme-pagination .t-pagination__jump {
+  background: color-mix(in srgb, var(--surface-bg) 88%, var(--page-base-bg)) !important;
+  border: 1px solid color-mix(in srgb, var(--surface-border) 92%, transparent) !important;
+  color: var(--text-color) !important;
+}
+
+.pagination-bar .theme-pagination .t-input-adornment,
+.pagination-bar .theme-pagination .t-input-adornment__append,
+.pagination-bar .theme-pagination .t-input-number,
+.pagination-bar .theme-pagination .t-input-number .t-input,
+.pagination-bar .theme-pagination .t-input-number .t-input__wrap,
+.pagination-bar .theme-pagination .t-input-number .t-input__inner {
+  background: color-mix(in srgb, var(--surface-bg) 92%, var(--page-base-bg)) !important;
+  color: var(--text-color) !important;
+}
+
+.pagination-bar .theme-pagination .t-input-number .t-input,
+.pagination-bar .theme-pagination .t-input-number .t-input__wrap,
+.pagination-bar .theme-pagination .t-input-adornment__append {
+  border-color: color-mix(in srgb, var(--surface-border) 92%, transparent) !important;
+}
+
+.pagination-bar .theme-pagination .t-input-adornment__append .t-input-adornment__text,
+.pagination-bar .theme-pagination .t-input-number .t-input__inner,
+.pagination-bar .theme-pagination .t-input-number .t-input__inner::placeholder {
+  color: var(--text-color) !important;
+}
+
 .gallery-load-more-trigger {
   width: 100%;
   height: 1px;

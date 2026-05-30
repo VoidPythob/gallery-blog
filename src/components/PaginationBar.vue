@@ -27,6 +27,7 @@ const current = computed({
   <div class="pagination-bar">
     <Pagination
       v-model:current="current"
+      class="theme-pagination"
       :page-size="pageSize"
       :total="total"
       :show-page-number="true"
