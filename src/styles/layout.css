@@ -879,14 +879,56 @@
 
 .friend-list {
   display: grid;
-  gap: 10px;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 280px));
+  align-content: start;
 }
 
 .friend-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   border: 1px solid var(--surface-border);
-  padding: 12px;
+  min-height: 64px;
+  padding: 14px 16px;
   background: var(--surface-bg);
   box-shadow: var(--shadow-style);
+}
+
+.friend-card-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--surface-bg) 84%, var(--page-base-bg));
+  border: 1px solid color-mix(in srgb, var(--surface-border) 88%, transparent);
+}
+
+.friend-card-icon-image,
+.friend-card-icon-fallback {
+  width: 100%;
+  height: 100%;
+}
+
+.friend-card-icon-image {
+  display: block;
+  object-fit: cover;
+}
+
+.friend-card-icon-fallback {
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent-text-color);
+}
+
+.friend-card-name {
+  min-width: 0;
+  font-weight: 600;
 }
 
 .drawer-panel {

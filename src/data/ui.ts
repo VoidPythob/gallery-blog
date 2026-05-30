@@ -20,6 +20,7 @@ export type NavIconName = "HomeIcon" | "ArticleIcon" | "ImageIcon" | "TagIcon" |
 export type FriendLink = {
   name: string;
   href: string;
+  icon?: string;
 };
 
 export const siteMeta = siteMetaJson as {

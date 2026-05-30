@@ -35,6 +35,11 @@
     column-count: 2;
   }
 
+  .friend-list {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 220px));
+    justify-content: center;
+  }
+
   .sidebar {
     display: none;
   }
@@ -230,8 +235,35 @@
     column-count: 1;
   }
 
+  .friend-list {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 190px));
+    justify-content: center;
+  }
+
+  .friend-card {
+    min-height: 58px;
+    padding: 12px 14px;
+  }
+
+  .friend-card-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  .friend-card-name {
+    font-size: 14px;
+  }
+
   .theme-settings {
     right: 12px;
     bottom: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .friend-list {
+    grid-template-columns: minmax(150px, 190px);
+    justify-content: center;
   }
 }
