@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
-import { Button, ColorPicker, Popup, RadioGroup, Slider, Switch } from 'tdesign-vue-next'
+import { Button, ColorPicker, Popup, Slider, Switch } from 'tdesign-vue-next'
 import { SettingIcon } from 'tdesign-icons-vue-next'
 import { useThemeStore, type ThemeFilter } from '../stores/theme'
 import { themeFilterOptions, themePanelText } from '../data/ui'
@@ -10,8 +10,6 @@ const visible = ref(false)
 const colorDraft = ref(themeStore.accentColor)
 
 let colorTimer: number | undefined
-
-const filterOptions = themeFilterOptions
 
 const filterValue = computed({
   get: () => themeStore.filter,
@@ -29,9 +27,14 @@ const shadowValue = computed({
 })
 
 const isDarkMode = computed(() => themeStore.mode === 'dark')
+const modeStatusLabel = computed(() => (isDarkMode.value ? themePanelText.dark : themePanelText.light))
 
 const onModeSwitchChange = (value: unknown) => {
   themeStore.setMode(Boolean(value) ? 'dark' : 'light')
+}
+
+const onFilterChange = (value: ThemeFilter) => {
+  filterValue.value = value
 }
 
 const commitColor = (value: string) => {
@@ -81,9 +84,8 @@ onBeforeUnmount(() => {
             <div class="theme-settings-block">
               <p class="theme-settings-label">{{ themePanelText.mode }}</p>
               <div class="theme-mode-switch">
-                <span>{{ themePanelText.light }}</span>
+                <span class="theme-mode-switch-label">{{ modeStatusLabel }}</span>
                 <Switch :model-value="isDarkMode" @change="onModeSwitchChange" />
-                <span>{{ themePanelText.dark }}</span>
               </div>
             </div>
 
@@ -95,12 +97,28 @@ onBeforeUnmount(() => {
                 enable-alpha
                 :show-primary-color-preview="true"
                 :input-props="{ readonly: true, autoWidth: false }"
+                :popup-props="{
+                  overlayClassName: 'theme-color-picker-popup',
+                  overlayInnerClassName: 'theme-color-picker-popup-inner',
+                }"
               />
             </div>
 
             <div class="theme-settings-block">
               <p class="theme-settings-label">{{ themePanelText.filter }}</p>
-              <RadioGroup v-model="filterValue" variant="default-filled" :options="filterOptions" />
+              <div class="theme-filter-actions">
+                <Button
+                  v-for="item in themeFilterOptions"
+                  :key="item.value"
+                  class="theme-filter-btn"
+                  :theme="filterValue === item.value ? 'primary' : 'default'"
+                  variant="outline"
+                  size="small"
+                  @click="onFilterChange(item.value)"
+                >
+                  {{ item.label }}
+                </Button>
+              </div>
             </div>
 
             <div class="theme-settings-block">
