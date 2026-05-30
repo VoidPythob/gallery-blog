@@ -1,8 +1,20 @@
-.theme-settings {
+﻿.theme-settings {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 60;
+  pointer-events: none;
+}
+
+.theme-settings-trigger-wrap {
+  position: absolute;
+  top: auto;
+  left: auto;
+  right: 28px;
+  bottom: 28px;
+  pointer-events: auto;
 }
 
 .theme-settings-trigger {
@@ -13,6 +25,11 @@
 }
 
 .theme-settings-panel {
+  position: absolute;
+  top: auto;
+  left: auto;
+  right: 28px;
+  bottom: 82px;
   width: 340px;
   max-width: calc(100vw - 24px);
   max-height: min(78vh, 720px);
@@ -21,6 +38,7 @@
   border: 1px solid var(--surface-border);
   box-shadow: var(--shadow-style);
   overflow: hidden;
+  pointer-events: auto;
 }
 
 .theme-settings-scroll {
@@ -29,28 +47,6 @@
   padding: 16px;
   max-height: inherit;
   overflow-y: auto;
-}
-
-.theme-settings-popup {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  max-width: calc(100vw - 24px);
-}
-
-.theme-settings-popup-inner {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-}
-
-.theme-settings-popup .t-popup__content,
-.theme-settings-popup .t-popup__content-inner {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  padding: 0 !important;
 }
 
 .theme-settings-title {
@@ -77,14 +73,26 @@
 }
 
 .theme-filter-btn.t-button--theme-default {
-  border-color: color-mix(in srgb, var(--surface-border) 90%, transparent) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 90%,
+    transparent
+  ) !important;
   color: var(--text-color) !important;
 }
 
 .theme-filter-btn.t-button--theme-primary {
-  border-color: color-mix(in srgb, var(--surface-border) 90%, transparent) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 90%,
+    transparent
+  ) !important;
   color: var(--accent-text-color) !important;
-  background: color-mix(in srgb, var(--surface-bg) 88%, var(--page-base-bg)) !important;
+  background: color-mix(
+    in srgb,
+    var(--surface-bg) 88%,
+    var(--page-base-bg)
+  ) !important;
 }
 
 .theme-settings-label {
@@ -127,7 +135,11 @@
 .theme-color-picker .t-input__wrap,
 .theme-color-picker .t-input {
   background: color-mix(in srgb, var(--surface-bg) 92%, transparent) !important;
-  border-color: color-mix(in srgb, var(--surface-border) 92%, transparent) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 92%,
+    transparent
+  ) !important;
   color: var(--text-color) !important;
 }
 
@@ -151,7 +163,9 @@
 .theme-color-picker-popup .t-color-picker {
   background: var(--panel-bg) !important;
   border: 1px solid var(--surface-border) !important;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--surface-border) 38%, transparent), var(--shadow-style) !important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--surface-border) 38%, transparent),
+    var(--shadow-style) !important;
   border-radius: var(--radius-soft) !important;
   color: var(--text-color) !important;
 }
@@ -170,13 +184,21 @@
 .theme-color-picker-popup .t-color-picker__swatches-wrap,
 .theme-color-picker-popup .t-color-picker__sliders,
 .theme-color-picker-popup .t-color-picker__inputs {
-  border-color: color-mix(in srgb, var(--surface-border) 82%, transparent) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 82%,
+    transparent
+  ) !important;
 }
 
 .theme-color-picker-popup .t-color-picker__formats {
   padding: 6px;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--surface-bg) 92%, var(--page-base-bg)) !important;
+  background: color-mix(
+    in srgb,
+    var(--surface-bg) 92%,
+    var(--page-base-bg)
+  ) !important;
 }
 
 .theme-color-picker-popup .t-color-picker__format-item,
@@ -192,41 +214,75 @@
 .theme-color-picker-popup .t-color-picker__format-item--active,
 .theme-color-picker-popup .t-color-picker__formats .t-is-active,
 .theme-color-picker-popup .t-color-picker__formats .t-button--variant-base {
-  background: color-mix(in srgb, var(--surface-bg) 98%, var(--page-base-bg)) !important;
-  border-color: color-mix(in srgb, var(--surface-border) 92%, transparent) !important;
+  background: color-mix(
+    in srgb,
+    var(--surface-bg) 98%,
+    var(--page-base-bg)
+  ) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 92%,
+    transparent
+  ) !important;
   color: var(--text-color) !important;
 }
 
 .theme-color-picker-popup .t-color-picker__format-item:hover,
 .theme-color-picker-popup .t-color-picker__formats .t-button:hover,
 .theme-color-picker-popup .t-color-picker__formats button:hover {
-  background: color-mix(in srgb, var(--surface-bg) 96%, var(--page-base-bg)) !important;
+  background: color-mix(
+    in srgb,
+    var(--surface-bg) 96%,
+    var(--page-base-bg)
+  ) !important;
   color: var(--text-color) !important;
 }
 
-:root[data-theme='dark'] .theme-color-picker-popup .t-color-picker__formats {
+:root[data-theme="dark"] .theme-color-picker-popup .t-color-picker__formats {
   background: color-mix(in srgb, var(--surface-bg) 82%, #020617) !important;
 }
 
-:root[data-theme='dark'] .theme-color-picker-popup .t-color-picker__format-item,
-:root[data-theme='dark'] .theme-color-picker-popup .t-color-picker__format-mode,
-:root[data-theme='dark'] .theme-color-picker-popup .t-color-picker__formats .t-button,
-:root[data-theme='dark'] .theme-color-picker-popup .t-color-picker__formats button {
+:root[data-theme="dark"] .theme-color-picker-popup .t-color-picker__format-item,
+:root[data-theme="dark"] .theme-color-picker-popup .t-color-picker__format-mode,
+:root[data-theme="dark"]
+  .theme-color-picker-popup
+  .t-color-picker__formats
+  .t-button,
+:root[data-theme="dark"]
+  .theme-color-picker-popup
+  .t-color-picker__formats
+  button {
   color: var(--muted-text) !important;
 }
 
-:root[data-theme='dark'] .theme-color-picker-popup .t-color-picker__format-item--active,
-:root[data-theme='dark'] .theme-color-picker-popup .t-color-picker__formats .t-is-active,
-:root[data-theme='dark'] .theme-color-picker-popup .t-color-picker__formats .t-button--variant-base {
+:root[data-theme="dark"]
+  .theme-color-picker-popup
+  .t-color-picker__format-item--active,
+:root[data-theme="dark"]
+  .theme-color-picker-popup
+  .t-color-picker__formats
+  .t-is-active,
+:root[data-theme="dark"]
+  .theme-color-picker-popup
+  .t-color-picker__formats
+  .t-button--variant-base {
   background: color-mix(in srgb, var(--surface-bg) 96%, #0f172a) !important;
-  border-color: color-mix(in srgb, var(--surface-border) 96%, transparent) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 96%,
+    transparent
+  ) !important;
   color: var(--text-color) !important;
 }
 
 .theme-color-picker-popup .t-input,
 .theme-color-picker-popup .t-input__wrap {
   background: color-mix(in srgb, var(--surface-bg) 92%, transparent) !important;
-  border-color: color-mix(in srgb, var(--surface-border) 92%, transparent) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 92%,
+    transparent
+  ) !important;
   color: var(--text-color) !important;
 }
 
@@ -257,29 +313,40 @@
 .theme-color-picker-popup .t-input__extra,
 .theme-color-picker-popup .t-input__tips,
 .theme-color-picker-popup .t-input-number__control,
-.theme-color-picker-popup .t-input-number__control * ,
+.theme-color-picker-popup .t-input-number__control *,
 .theme-color-picker-popup span,
 .theme-color-picker-popup label,
 .theme-color-picker-popup small,
 .theme-color-picker-popup button,
 .theme-color-picker-popup input,
 .theme-color-picker-popup textarea,
-.theme-color-picker-popup [class*='label'],
-.theme-color-picker-popup [class*='text'],
-.theme-color-picker-popup [class*='value'],
-:root[data-theme='dark'] .theme-color-picker-popup * {
+.theme-color-picker-popup [class*="label"],
+.theme-color-picker-popup [class*="text"],
+.theme-color-picker-popup [class*="value"],
+:root[data-theme="dark"] .theme-color-picker-popup * {
   color: var(--text-color) !important;
 }
 
-:root[data-theme='dark'] .theme-color-picker-popup .t-color-picker {
+:root[data-theme="dark"] .theme-color-picker-popup .t-color-picker {
   background: var(--panel-bg) !important;
 }
 
 @media (max-width: 650px) {
   .theme-settings-panel {
+    top: auto;
+    left: auto;
+    right: 18px;
+    bottom: 78px;
     width: min(92vw, 360px);
     max-height: min(74vh, 560px);
     background: var(--panel-bg);
+  }
+
+  .theme-settings-trigger-wrap {
+    top: auto;
+    left: auto;
+    right: 18px;
+    bottom: 18px;
   }
 
   .theme-settings-scroll {
@@ -293,8 +360,16 @@
 .theme-color-picker-popup .t-radio-group__container,
 .theme-color-picker-popup .t-segmented-control,
 .theme-color-picker-popup .t-segmented-control__wrap {
-  background: color-mix(in srgb, var(--surface-bg) 92%, var(--page-base-bg)) !important;
-  border-color: color-mix(in srgb, var(--surface-border) 92%, transparent) !important;
+  background: color-mix(
+    in srgb,
+    var(--surface-bg) 92%,
+    var(--page-base-bg)
+  ) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 92%,
+    transparent
+  ) !important;
   box-shadow: none !important;
 }
 
@@ -310,38 +385,63 @@
 .theme-color-picker-popup .t-tabs__nav-item.t-is-active,
 .theme-color-picker-popup .t-radio-button.t-is-checked,
 .theme-color-picker-popup .t-segmented-control__item--active {
-  background: color-mix(in srgb, var(--surface-bg) 98%, var(--page-base-bg)) !important;
-  border-color: color-mix(in srgb, var(--surface-border) 92%, transparent) !important;
+  background: color-mix(
+    in srgb,
+    var(--surface-bg) 98%,
+    var(--page-base-bg)
+  ) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 92%,
+    transparent
+  ) !important;
   color: var(--text-color) !important;
 }
 
 .theme-color-picker-popup .t-tabs__nav-item:hover,
 .theme-color-picker-popup .t-radio-button:hover,
 .theme-color-picker-popup .t-segmented-control__item:hover {
-  background: color-mix(in srgb, var(--surface-bg) 96%, var(--page-base-bg)) !important;
+  background: color-mix(
+    in srgb,
+    var(--surface-bg) 96%,
+    var(--page-base-bg)
+  ) !important;
   color: var(--text-color) !important;
 }
 
-:root[data-theme='dark'] .theme-color-picker-popup .t-tabs,
-:root[data-theme='dark'] .theme-color-picker-popup .t-tabs__nav,
-:root[data-theme='dark'] .theme-color-picker-popup .t-radio-group,
-:root[data-theme='dark'] .theme-color-picker-popup .t-radio-group__container,
-:root[data-theme='dark'] .theme-color-picker-popup .t-segmented-control,
-:root[data-theme='dark'] .theme-color-picker-popup .t-segmented-control__wrap {
+:root[data-theme="dark"] .theme-color-picker-popup .t-tabs,
+:root[data-theme="dark"] .theme-color-picker-popup .t-tabs__nav,
+:root[data-theme="dark"] .theme-color-picker-popup .t-radio-group,
+:root[data-theme="dark"] .theme-color-picker-popup .t-radio-group__container,
+:root[data-theme="dark"] .theme-color-picker-popup .t-segmented-control,
+:root[data-theme="dark"] .theme-color-picker-popup .t-segmented-control__wrap {
   background: color-mix(in srgb, var(--surface-bg) 82%, #020617) !important;
-  border-color: color-mix(in srgb, var(--surface-border) 92%, transparent) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 92%,
+    transparent
+  ) !important;
 }
 
-:root[data-theme='dark'] .theme-color-picker-popup .t-tabs__nav-item,
-:root[data-theme='dark'] .theme-color-picker-popup .t-radio-button,
-:root[data-theme='dark'] .theme-color-picker-popup .t-segmented-control__item {
+:root[data-theme="dark"] .theme-color-picker-popup .t-tabs__nav-item,
+:root[data-theme="dark"] .theme-color-picker-popup .t-radio-button,
+:root[data-theme="dark"] .theme-color-picker-popup .t-segmented-control__item {
   color: var(--muted-text) !important;
 }
 
-:root[data-theme='dark'] .theme-color-picker-popup .t-tabs__nav-item.t-is-active,
-:root[data-theme='dark'] .theme-color-picker-popup .t-radio-button.t-is-checked,
-:root[data-theme='dark'] .theme-color-picker-popup .t-segmented-control__item--active {
+:root[data-theme="dark"]
+  .theme-color-picker-popup
+  .t-tabs__nav-item.t-is-active,
+:root[data-theme="dark"] .theme-color-picker-popup .t-radio-button.t-is-checked,
+:root[data-theme="dark"]
+  .theme-color-picker-popup
+  .t-segmented-control__item--active {
   background: color-mix(in srgb, var(--surface-bg) 96%, #0f172a) !important;
-  border-color: color-mix(in srgb, var(--surface-border) 96%, transparent) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 96%,
+    transparent
+  ) !important;
   color: var(--text-color) !important;
 }
+
