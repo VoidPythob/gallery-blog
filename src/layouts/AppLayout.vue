@@ -23,7 +23,7 @@ const { isRouteLoading } = useRouteLoading()
                   ? 'route-page-timeline'
                   : route.name === 'home'
                     ? 'route-page-home'
-                    : 'animate__animated animate__fadeIn animate__faster',
+                    : 'route-page-standard',
               ]"
             />
           </Transition>

@@ -30,38 +30,38 @@ defineProps<{
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at top, color-mix(in srgb, var(--accent-text-color) 10%, transparent), transparent 48%),
-    color-mix(in srgb, var(--page-base-bg) 78%, transparent);
-  backdrop-filter: blur(18px);
+    radial-gradient(circle at top, color-mix(in srgb, var(--accent-text-color) 8%, transparent), transparent 52%),
+    color-mix(in srgb, var(--page-base-bg) 86%, transparent);
 }
 
 .route-loading-overlay__panel {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 20px 24px;
+  gap: 10px;
+  padding: 16px 20px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--panel-bg) 96%, transparent);
-  border: 1px solid color-mix(in srgb, var(--surface-border) 92%, transparent);
-  box-shadow: var(--shadow-style);
+  background: color-mix(in srgb, var(--panel-bg) 98%, transparent);
+  border: 1px solid color-mix(in srgb, var(--surface-border) 88%, transparent);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.14);
 }
 
 .route-loading-overlay__pulse {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 999px;
   background: var(--accent-text-color);
-  animation: route-loading-pulse 0.72s ease-in-out infinite;
+  animation: route-loading-pulse 0.6s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 .route-loading-overlay__pulse--delay {
-  animation-delay: 0.18s;
+  animation-delay: 0.14s;
 }
 
 .route-loading-overlay-enter-active,
 .route-loading-overlay-leave-active {
-  transition: opacity 0.24s ease;
+  transition: opacity 0.16s ease;
 }
 
 .route-loading-overlay-enter-from,
@@ -72,13 +72,25 @@ defineProps<{
 @keyframes route-loading-pulse {
   0%,
   100% {
-    transform: translateY(0) scale(0.88);
-    opacity: 0.52;
+    transform: translateY(0) scale(0.92);
+    opacity: 0.54;
   }
 
   50% {
-    transform: translateY(-6px) scale(1);
+    transform: translateY(-4px) scale(1);
     opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-loading-overlay__pulse {
+    animation: none;
+    opacity: 0.82;
+  }
+
+  .route-loading-overlay-enter-active,
+  .route-loading-overlay-leave-active {
+    transition-duration: 0.01s;
   }
 }
 </style>

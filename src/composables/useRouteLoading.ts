@@ -10,13 +10,11 @@ const waitForPaint = async () => {
   await nextTick()
 
   await new Promise<void>((resolve) => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => resolve())
-    })
+    requestAnimationFrame(() => resolve())
   })
 }
 
-export const useRouteLoading = (minimumDuration = 320) => {
+export const useRouteLoading = (minimumDuration = 220) => {
   const router = useRouter()
   const isRouteLoading = shallowRef(false)
   let navigationToken = 0
