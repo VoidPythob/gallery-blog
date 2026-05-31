@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { Button, ColorPicker, Slider, Switch } from 'tdesign-vue-next'
-import { SettingIcon } from 'tdesign-icons-vue-next'
+import { ArrowLeftIcon, ArrowRightIcon, Brightness1Icon, SettingIcon } from 'tdesign-icons-vue-next'
 import { useThemeStore, type ThemeFilter } from '../stores/theme'
 import { themeFilterOptions, themePanelText } from '../data/ui'
 
@@ -29,9 +29,21 @@ const shadowValue = computed({
 
 const isDarkMode = computed(() => themeStore.mode === 'dark')
 const modeStatusLabel = computed(() => (isDarkMode.value ? themePanelText.dark : themePanelText.light))
+const dockSide = computed(() => themeStore.dockSide)
+const dockToggleTitle = computed(() => (dockSide.value === 'right' ? '切换到左侧' : '切换到右侧'))
+const modeToggleTitle = computed(() => (isDarkMode.value ? '切换到浅色模式' : '切换到暗色模式'))
+const DockToggleIcon = computed(() => (dockSide.value === 'right' ? ArrowLeftIcon : ArrowRightIcon))
 
 const onModeSwitchChange = (value: unknown) => {
   themeStore.setMode(Boolean(value) ? 'dark' : 'light')
+}
+
+const toggleMode = () => {
+  themeStore.toggleMode()
+}
+
+const toggleDockSide = () => {
+  themeStore.toggleDockSide()
 }
 
 const onFilterChange = (value: ThemeFilter) => {
@@ -85,7 +97,30 @@ onBeforeUnmount(() => {
 
 <template>
   <Teleport to="body">
-    <div ref="rootRef" class="theme-settings">
+    <div ref="rootRef" class="theme-settings" :class="[`is-${dockSide}`]">
+      <div class="theme-settings-hover-tools">
+        <Button
+          class="theme-hover-tool-btn"
+          theme="default"
+          variant="outline"
+          shape="circle"
+          :title="modeToggleTitle"
+          @click="toggleMode"
+        >
+          <Brightness1Icon />
+        </Button>
+        <Button
+          class="theme-hover-tool-btn"
+          theme="default"
+          variant="outline"
+          shape="circle"
+          :title="dockToggleTitle"
+          @click="toggleDockSide"
+        >
+          <component :is="DockToggleIcon" />
+        </Button>
+      </div>
+
       <div v-show="visible" class="theme-settings-panel">
         <div class="theme-settings-scroll narrow-scrollbar">
           <p class="theme-settings-title">{{ themePanelText.title }}</p>

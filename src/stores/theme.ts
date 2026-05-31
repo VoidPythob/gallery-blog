@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 
 export type ThemeMode = 'light' | 'dark'
 export type ThemeFilter = 'none' | 'warm' | 'gray' | 'soft'
+export type ThemeDockSide = 'left' | 'right'
 
 type ThemeState = {
   mode: ThemeMode
@@ -9,6 +10,7 @@ type ThemeState = {
   filter: ThemeFilter
   radius: number
   shadow: number
+  dockSide: ThemeDockSide
 }
 
 const STORAGE_KEY = 'gallery_blog_theme_v1'
@@ -89,6 +91,7 @@ export const useThemeStore = defineStore('theme', {
     filter: 'none',
     radius: 16,
     shadow: 18,
+    dockSide: 'right',
   }),
   actions: {
     apply() {
@@ -105,6 +108,7 @@ export const useThemeStore = defineStore('theme', {
           this.filter = parsed.filter ?? this.filter
           this.radius = parsed.radius ?? this.radius
           this.shadow = parsed.shadow ?? this.shadow
+          this.dockSide = parsed.dockSide ?? this.dockSide
         } catch {
           // ignore invalid local storage content
         }
@@ -133,6 +137,14 @@ export const useThemeStore = defineStore('theme', {
     },
     setShadow(shadow: number) {
       this.shadow = shadow
+      this.apply()
+    },
+    setDockSide(side: ThemeDockSide) {
+      this.dockSide = side
+      this.apply()
+    },
+    toggleDockSide() {
+      this.dockSide = this.dockSide === 'left' ? 'right' : 'left'
       this.apply()
     },
   },
