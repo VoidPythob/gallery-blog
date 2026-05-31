@@ -6,7 +6,6 @@ import pageTextJson from "./ui/page-text.json";
 import modeTextJson from "./ui/mode-text.json";
 import themePanelTextJson from "./ui/theme-panel-text.json";
 import themeFilterOptionsJson from "./ui/theme-filter-options.json";
-import friendLinksJson from "./ui/friend-links.json";
 import { ArticleIcon, HomeIcon, ImageIcon, LinkIcon, TagIcon, TimeIcon } from "tdesign-icons-vue-next";
 
 export type NavItem = {
@@ -17,7 +16,7 @@ export type NavItem = {
 
 export type NavIconName = "HomeIcon" | "ArticleIcon" | "ImageIcon" | "TagIcon" | "LinkIcon" | "TimeIcon";
 
-export type FriendLink = {
+export type FriendLinkCompat = {
   name: string;
   href: string;
   icon?: string;
@@ -80,4 +79,6 @@ export const themeFilterOptions = themeFilterOptionsJson.options as Array<{
   value: ThemeFilter;
 }>;
 
-export const friendLinks = friendLinksJson.items as FriendLink[];
+// Compatibility export for stale dev-server modules that still import `friendLinks` from ui.ts.
+// The actual friend-link data is now loaded from `public/posts/friend-links.json` in `data/site.ts`.
+export const friendLinks: FriendLinkCompat[] = [];

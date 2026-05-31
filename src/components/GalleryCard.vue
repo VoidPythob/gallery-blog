@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router'
 
 defineProps<{
+  id: number
   title: string
   imageUrl: string
   tagIds: number[]
@@ -19,9 +20,16 @@ const onTagClick = (event: MouseEvent, tagId: number) => {
 </script>
 
 <template>
-  <article class="gallery-card-plain">
+  <article
+    class="content-card gallery-card article-card"
+    role="button"
+    tabindex="0"
+    @click="router.push(`/gallery/${id}`)"
+    @keyup.enter="router.push(`/gallery/${id}`)"
+  >
     <div class="card-cover" :style="{ backgroundImage: `url(${imageUrl})` }" />
     <div class="card-body">
+      <h3>{{ title }}</h3>
       <div class="tag-row">
         <button
           v-for="(tag, index) in tags"

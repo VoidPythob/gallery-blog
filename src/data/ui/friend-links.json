@@ -1,6 +1,0 @@
-﻿{
-  "items": [
-    { "name": "友站 A", "href": "#", "icon": "https://api.dicebear.com/9.x/shapes/svg?seed=FriendA" },
-    { "name": "友站 B", "href": "#", "icon": "https://api.dicebear.com/9.x/shapes/svg?seed=FriendB" }
-  ]
-}

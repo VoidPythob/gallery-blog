@@ -32,6 +32,28 @@ export type BloggerProfile = {
   avatar: string;
   location: string;
   status: string;
+  links: BloggerLink[];
+};
+
+export type BloggerLinkPlatform = 'github' | 'bilibili' | 'wechat' | 'tiktok' | 'website';
+
+export type BloggerLink = {
+  platform: BloggerLinkPlatform;
+  label: string;
+  url: string;
+};
+
+export type FriendLink = {
+  name: string;
+  href: string;
+  icon?: string;
+};
+
+type FriendLinkSource = {
+  name?: string;
+  href?: string;
+  url?: string;
+  icon?: string;
 };
 
 export type TimelineEntry = {
@@ -83,6 +105,7 @@ const tagSamplesPath = 'tag-samples.json';
 const tagArticleMapPath = 'tag-article-map.json';
 const tagGalleryMapPath = 'tag-gallery-map.json';
 const bloggerPath = 'blogger.json';
+const friendLinksPath = 'friend-links.json';
 const resolvePostsPath = (path: string) => `${import.meta.env.BASE_URL}posts/${path}`;
 
 let articlesCache: Article[] | null = null;
@@ -92,6 +115,7 @@ let tagSamplesCache: TagSample[] | null = null;
 let tagArticleMapCache: Record<number, number[]> | null = null;
 let tagGalleryMapCache: Record<number, number[]> | null = null;
 let bloggerCache: BloggerProfile | null = null;
+let friendLinksCache: FriendLink[] | null = null;
 let timelineCache: TimelineEntry[] | null = null;
 
 const loadJsonList = async <T>(path: string): Promise<T[]> => {
@@ -247,14 +271,43 @@ export const getBlogger = async () => {
   try {
     const response = await fetch(resolvePostsPath(bloggerPath), { cache: 'no-store' });
     if (!response.ok) {
-      bloggerCache = { name: '', bio: '', avatar: '', location: '', status: '' };
+      bloggerCache = { name: '', bio: '', avatar: '', location: '', status: '', links: [] };
       return bloggerCache;
     }
-    bloggerCache = (await response.json()) as BloggerProfile;
+    const data = (await response.json()) as Partial<BloggerProfile>;
+    bloggerCache = {
+      name: data.name ?? '',
+      bio: data.bio ?? '',
+      avatar: data.avatar ?? '',
+      location: data.location ?? '',
+      status: data.status ?? '',
+      links: Array.isArray(data.links)
+        ? data.links.filter(
+            (item): item is BloggerLink =>
+              Boolean(item) &&
+              typeof item.platform === 'string' &&
+              typeof item.label === 'string' &&
+              typeof item.url === 'string',
+          )
+        : [],
+    };
   } catch {
-    bloggerCache = { name: '', bio: '', avatar: '', location: '', status: '' };
+    bloggerCache = { name: '', bio: '', avatar: '', location: '', status: '', links: [] };
   }
   return bloggerCache;
+};
+
+export const getFriendLinks = async () => {
+  if (friendLinksCache) return friendLinksCache;
+  const rawLinks = await loadJsonList<FriendLinkSource>(friendLinksPath);
+  friendLinksCache = rawLinks
+    .map((item) => ({
+      name: item.name ?? '',
+      href: item.href ?? item.url ?? '',
+      icon: item.icon,
+    }))
+    .filter((item) => Boolean(item.name) && Boolean(item.href) && item.href !== '#');
+  return friendLinksCache;
 };
 
 export const getTimelineEntries = async () => {

@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "name": "Bilibili",
+      "url": "https://www.bilibili.com/",
+      "icon": "https://api.dicebear.com/9.x/shapes/svg?seed=FriendA"
+    },
+    {
+      "name": "GitHub",
+      "url": "https://github.com/",
+      "icon": "https://api.dicebear.com/9.x/shapes/svg?seed=FriendB"
+    }
+  ]
+}

@@ -1,7 +1,29 @@
-﻿{
-  "name": "Void Pythob",
-  "bio": "静态博客 / 画廊站点",
-  "avatar": "V",
-  "location": "Shanghai",
-  "status": "创作中"
+{
+  "name": "WoodenEasy",
+  "bio": "a normal programer",
+  "avatar": "W",
+  "location": "江西",
+  "status": "yahoo",
+  "links": [
+    {
+      "platform": "github",
+      "label": "GitHub",
+      "url": "https://github.com/"
+    },
+    {
+      "platform": "bilibili",
+      "label": "Bilibili",
+      "url": "https://www.bilibili.com/"
+    },
+    {
+      "platform": "wechat",
+      "label": "WeChat",
+      "url": "https://weixin.qq.com/"
+    },
+    {
+      "platform": "tiktok",
+      "label": "TikTok",
+      "url": "https://www.douyin.com/"
+    }
+  ]
 }

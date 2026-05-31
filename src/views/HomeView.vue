@@ -1,25 +1,39 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { ChevronDownIcon } from 'tdesign-icons-vue-next'
 import ContentLayout from '../components/ContentLayout.vue'
 import PageSection from '../components/PageSection.vue'
 import ArticleCard from '../components/ArticleCard.vue'
 import GalleryCard from '../components/GalleryCard.vue'
+import PaginationBar from '../components/PaginationBar.vue'
 import { getArticles, getDailyWord, getGalleryItems, type Article, type GalleryItem } from '../data/site'
 import { heroConfig, pageText } from '../data/ui'
 
 const HOME_CONTENT_ANIMATED_KEY = 'home-content-animated'
+const HOME_PAGE_SIZE = 10
 
 const typedQuote = ref('')
 const articles = ref<Article[]>([])
 const galleryItems = ref<GalleryItem[]>([])
 const featuredGalleryItems = computed(() => galleryItems.value.filter((item) => item.isFeatured))
+const articlePage = ref(1)
+const galleryPage = ref(1)
 const enableContentAnimation = ref(false)
 const heroScrollClicked = ref(false)
 
 let timer: number | undefined
 let index = 0
 let dailyQuote = ''
+
+const pagedArticles = computed(() => {
+  const start = (articlePage.value - 1) * HOME_PAGE_SIZE
+  return articles.value.slice(start, start + HOME_PAGE_SIZE)
+})
+
+const pagedFeaturedGalleryItems = computed(() => {
+  const start = (galleryPage.value - 1) * HOME_PAGE_SIZE
+  return featuredGalleryItems.value.slice(start, start + HOME_PAGE_SIZE)
+})
 
 const step = () => {
   if (index <= dailyQuote.length) {
@@ -50,6 +64,20 @@ onMounted(() => {
 onBeforeUnmount(() => {
   if (timer) {
     window.clearTimeout(timer)
+  }
+})
+
+watch(articles, (list) => {
+  const totalPages = Math.max(1, Math.ceil(list.length / HOME_PAGE_SIZE))
+  if (articlePage.value > totalPages) {
+    articlePage.value = totalPages
+  }
+})
+
+watch(featuredGalleryItems, (list) => {
+  const totalPages = Math.max(1, Math.ceil(list.length / HOME_PAGE_SIZE))
+  if (galleryPage.value > totalPages) {
+    galleryPage.value = totalPages
   }
 })
 
@@ -84,8 +112,11 @@ const handleEnterContent = () => {
           <template #title>
             <h2>{{ pageText.pinnedTitle }}</h2>
           </template>
-          <div class="card-grid">
-            <ArticleCard v-for="item in articles" :key="item.id" v-bind="item" />
+          <div class="card-grid card-grid-spacious">
+            <ArticleCard v-for="item in pagedArticles" :key="item.id" v-bind="item" />
+          </div>
+          <div class="page-list-footer">
+            <PaginationBar v-model="articlePage" :total="articles.length" :page-size="HOME_PAGE_SIZE" />
           </div>
         </PageSection>
 
@@ -93,8 +124,15 @@ const handleEnterContent = () => {
           <template #title>
             <h2>{{ pageText.featuredGalleryTitle }}</h2>
           </template>
-          <div class="card-grid">
-            <GalleryCard v-for="item in featuredGalleryItems" :key="item.id" v-bind="item" />
+          <div class="card-grid card-grid-spacious">
+            <GalleryCard v-for="item in pagedFeaturedGalleryItems" :key="item.id" v-bind="item" />
+          </div>
+          <div class="page-list-footer">
+            <PaginationBar
+              v-model="galleryPage"
+              :total="featuredGalleryItems.length"
+              :page-size="HOME_PAGE_SIZE"
+            />
           </div>
         </PageSection>
       </ContentLayout>

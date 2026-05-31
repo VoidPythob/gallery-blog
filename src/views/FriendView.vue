@@ -1,7 +1,15 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import ContentLayout from '../components/ContentLayout.vue'
 import PageSection from '../components/PageSection.vue'
-import { friendLinks, pageText } from '../data/ui'
+import { pageText } from '../data/ui'
+import { getFriendLinks, type FriendLink } from '../data/site'
+
+const friendLinks = ref<FriendLink[]>([])
+
+onMounted(async () => {
+  friendLinks.value = await getFriendLinks()
+})
 
 const getFriendMark = (name: string) => name.trim().slice(0, 1).toUpperCase()
 </script>
@@ -31,4 +39,3 @@ const getFriendMark = (name: string) => name.trim().slice(0, 1).toUpperCase()
     </PageSection>
   </ContentLayout>
 </template>
-
