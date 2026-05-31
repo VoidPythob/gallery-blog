@@ -45,8 +45,8 @@
   }
 
   .drawer-panel {
-    min-height: calc(100vh - 32px);
-    overflow-y: auto;
+    height: 100%;
+    min-height: 0;
   }
 
   .content-main {
