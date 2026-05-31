@@ -9,18 +9,15 @@ import PaginationBar from '../components/PaginationBar.vue'
 import { getArticles, getDailyWord, getGalleryItems, type Article, type GalleryItem } from '../data/site'
 import { heroConfig, pageText } from '../data/ui'
 
-const HOME_CONTENT_ANIMATED_KEY = 'home-content-animated'
 const HOME_PAGE_SIZE = 10
 
 const typedQuote = ref('')
 const articles = ref<Article[]>([])
 const galleryItems = ref<GalleryItem[]>([])
+const contentSectionRef = ref<HTMLElement | null>(null)
 const featuredGalleryItems = computed(() => galleryItems.value.filter((item) => item.isFeatured))
 const articlePage = ref(1)
 const galleryPage = ref(1)
-const enableContentAnimation = ref(false)
-const heroScrollClicked = ref(false)
-
 let timer: number | undefined
 let index = 0
 let dailyQuote = ''
@@ -51,7 +48,6 @@ const step = () => {
 }
 
 onMounted(() => {
-  enableContentAnimation.value = !window.sessionStorage.getItem(HOME_CONTENT_ANIMATED_KEY)
   void (async () => {
     const [word, articleList, galleryList] = await Promise.all([getDailyWord(), getArticles(), getGalleryItems()])
     dailyQuote = word
@@ -82,13 +78,12 @@ watch(featuredGalleryItems, (list) => {
 })
 
 const handleEnterContent = () => {
-  if (heroScrollClicked.value) {
-    return
-  }
-  heroScrollClicked.value = true
-  enableContentAnimation.value = false
-  window.sessionStorage.setItem(HOME_CONTENT_ANIMATED_KEY, '1')
+  contentSectionRef.value?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  })
 }
+
 </script>
 
 <template>
@@ -101,12 +96,12 @@ const handleEnterContent = () => {
           <span class="typing-line">{{ typedQuote }}</span><span class="typing-caret">|</span>
         </div>
       </div>
-      <a class="hero-scroll" href="#home-content" :aria-label="heroConfig.enterText" @click="handleEnterContent">
+      <button class="hero-scroll" type="button" :aria-label="heroConfig.enterText" @click="handleEnterContent">
         <ChevronDownIcon />
-      </a>
+      </button>
     </section>
 
-    <section id="home-content" class="content-area" :class="{ 'home-content-static': !enableContentAnimation }">
+    <section id="home-content" ref="contentSectionRef" class="content-area home-content-static">
       <ContentLayout>
         <PageSection>
           <template #title>

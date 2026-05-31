@@ -13,13 +13,17 @@ const { isRouteLoading } = useRouteLoading()
     <div class="app-content">
       <main class="app-main">
         <RouterView v-slot="{ Component, route }">
-          <Transition :name="route.name === 'timeline' ? 'route-none' : 'route-fade'" mode="out-in">
+          <Transition :name="route.name === 'timeline' || route.name === 'home' ? 'route-none' : 'route-fade'" mode="out-in">
             <component
               :is="Component"
               :key="route.fullPath"
               :class="[
                 'route-page',
-                route.name === 'timeline' ? 'route-page-timeline' : 'animate__animated animate__fadeIn animate__faster',
+                route.name === 'timeline'
+                  ? 'route-page-timeline'
+                  : route.name === 'home'
+                    ? 'route-page-home'
+                    : 'animate__animated animate__fadeIn animate__faster',
               ]"
             />
           </Transition>
