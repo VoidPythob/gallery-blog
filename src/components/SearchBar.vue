@@ -59,7 +59,7 @@ const loadCandidates = async () => {
     const galleryCandidates: SearchCandidate[] = galleryItems.map((item) => ({
       id: `gallery-${item.id}`,
       label: item.title,
-      to: '/gallery',
+      to: `/gallery/${item.id}`,
       type: 'gallery',
     }))
     candidates.value = [...baseCandidates, ...articleCandidates, ...galleryCandidates]

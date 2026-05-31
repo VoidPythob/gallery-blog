@@ -96,3 +96,15 @@
   background: var(--surface-border);
   margin: 16px 0;
 }
+
+.markdown-content img,
+.markdown-preview-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 14px 0;
+  border-radius: var(--radius-soft);
+  cursor: zoom-in;
+  box-shadow: var(--shadow-style);
+  object-fit: cover;
+}
