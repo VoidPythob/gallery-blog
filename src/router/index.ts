@@ -40,10 +40,9 @@ const router = createRouter({
           props: (route) => ({ id: Number(route.params.id) }),
         },
         {
-          path: "tag/:tagId",
+          path: "tag/:tagId?",
           name: "tag",
           component: () => import("../views/TagView.vue"),
-          props: (route) => ({ tagId: Number(route.params.tagId) }),
         },
         {
           path: "friend",

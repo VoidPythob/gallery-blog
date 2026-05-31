@@ -1,32 +1,80 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { Button, Input, Popup } from 'tdesign-vue-next'
+import { SearchIcon } from 'tdesign-icons-vue-next'
 import ContentLayout from '../components/ContentLayout.vue'
 import PageSection from '../components/PageSection.vue'
 import ModeSwitch from '../components/ModeSwitch.vue'
 import ArticleCard from '../components/ArticleCard.vue'
 import GalleryCard from '../components/GalleryCard.vue'
 import PaginationBar from '../components/PaginationBar.vue'
-import { getArticles, getGalleryItems, getTagSamples, type Article, type GalleryItem, type TagSample } from '../data/site'
+import {
+  getArticles,
+  getGalleryItems,
+  getTagSamples,
+  type Article,
+  type GalleryItem,
+  type TagSample,
+} from '../data/site'
 import { pageText } from '../data/ui'
 
-const props = defineProps<{
-  tagId: number
-}>()
+const route = useRoute()
+const router = useRouter()
 
 const mode = ref<'article' | 'gallery'>('article')
-const pageSize = 10
+const pageSize = 9
+const tagPageSize = 9
 const articlePage = ref(1)
 const galleryPage = ref(1)
+const tagPage = ref(1)
+const tagPopupVisible = ref(false)
+const tagKeyword = ref('')
 const articles = ref<Article[]>([])
 const galleryItems = ref<GalleryItem[]>([])
 const tags = ref<TagSample[]>([])
 
-const currentTagName = computed(() => tags.value.find((item) => item.id === props.tagId)?.name ?? `标签${props.tagId}`)
-const filteredArticles = computed(() => {
-  return articles.value.filter((item) => item.tagIds.includes(props.tagId))
+const selectedTagId = computed<number | null>(() => {
+  const raw = route.params.tagId
+  const value = typeof raw === 'string' ? Number(raw) : Number(Array.isArray(raw) ? raw[0] : raw)
+  return Number.isFinite(value) && value > 0 ? value : null
 })
+
+const currentTagName = computed(() => {
+  if (selectedTagId.value === null) return '全部'
+  return tags.value.find((item) => item.id === selectedTagId.value)?.name ?? `标签${selectedTagId.value}`
+})
+
+const normalizedKeyword = computed(() => tagKeyword.value.trim().toLowerCase())
+
+const filteredTagOptions = computed(() => {
+  const keyword = normalizedKeyword.value
+  const list = keyword ? tags.value.filter((item) => item.name.toLowerCase().includes(keyword)) : tags.value
+
+  return [
+    {
+      id: 0,
+      name: '全部',
+    },
+    ...list,
+  ]
+})
+
+const pagedTagOptions = computed(() => {
+  const start = (tagPage.value - 1) * tagPageSize
+  return filteredTagOptions.value.slice(start, start + tagPageSize)
+})
+
+const filteredArticles = computed(() => {
+  const tagId = selectedTagId.value
+  if (tagId === null) return articles.value
+  return articles.value.filter((item) => item.tagIds.includes(tagId))
+})
+
 const filteredGallery = computed(() => {
-  return galleryItems.value.filter((item) => item.tagIds.includes(props.tagId))
+  const tagId = selectedTagId.value
+  if (tagId === null) return galleryItems.value
+  return galleryItems.value.filter((item) => item.tagIds.includes(tagId))
 })
 
 const pagedArticles = computed(() => {
@@ -39,9 +87,11 @@ const pagedGallery = computed(() => {
   return filteredGallery.value.slice(start, start + pageSize)
 })
 
-const refreshRelations = async () => {
-  articlePage.value = 1
-  galleryPage.value = 1
+const selectTag = async (tagId: number | null) => {
+  const target = tagId === null ? '/tag' : `/tag/${tagId}`
+  tagPopupVisible.value = false
+  if (route.path === target) return
+  await router.push(target)
 }
 
 onMounted(async () => {
@@ -49,15 +99,23 @@ onMounted(async () => {
   articles.value = articleList
   galleryItems.value = galleryList
   tags.value = tagList
-  await refreshRelations()
 })
 
-watch(
-  () => props.tagId,
-  () => {
-    void refreshRelations()
-  },
-)
+watch(selectedTagId, () => {
+  articlePage.value = 1
+  galleryPage.value = 1
+})
+
+watch(tagKeyword, () => {
+  tagPage.value = 1
+})
+
+watch(filteredTagOptions, (list) => {
+  const totalPages = Math.max(1, Math.ceil(list.length / tagPageSize))
+  if (tagPage.value > totalPages) {
+    tagPage.value = totalPages
+  }
+})
 </script>
 
 <template>
@@ -67,8 +125,48 @@ watch(
         <h2>{{ pageText.tagTitlePrefix }}{{ currentTagName }}</h2>
       </template>
       <template #action>
-        <ModeSwitch v-model="mode" />
+        <div class="tag-page-actions">
+          <Popup v-model:visible="tagPopupVisible" placement="bottom-right" trigger="click">
+            <template #content>
+              <div class="tag-popup-panel">
+                <div class="tag-popup-head">
+                  <p class="tag-popup-title">标签筛选</p>
+                  <Input v-model="tagKeyword" class="tag-popup-search" clearable placeholder="搜索标签">
+                    <template #prefix-icon>
+                      <SearchIcon />
+                    </template>
+                  </Input>
+                </div>
+
+                <div class="tag-popup-grid">
+                  <button
+                    v-for="tag in pagedTagOptions"
+                    :key="tag.id"
+                    class="tag-chip tag-chip-link tag-filter-btn"
+                    :class="{ active: (tag.id || null) === selectedTagId }"
+                    type="button"
+                    @click="selectTag(tag.id || null)"
+                  >
+                    {{ tag.name }}
+                  </button>
+                </div>
+
+                <div class="tag-popup-footer">
+                  <PaginationBar v-model="tagPage" :total="filteredTagOptions.length" :page-size="tagPageSize" />
+                </div>
+              </div>
+            </template>
+
+            <Button class="tag-popup-trigger" theme="default" variant="outline">选择标签</Button>
+          </Popup>
+
+          <ModeSwitch v-model="mode" />
+        </div>
       </template>
+
+      <div class="tag-filter-summary">
+        <span class="tag-chip tag-filter-current">{{ currentTagName }}</span>
+      </div>
 
       <div class="page-list-body">
         <div v-if="mode === 'article'" class="card-grid card-grid-spacious">
