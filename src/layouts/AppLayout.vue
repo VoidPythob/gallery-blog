@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import RouteLoadingOverlay from '../components/RouteLoadingOverlay.vue'
 import Topbar from '../components/Topbar.vue'
 import ThemeSettings from '../components/ThemeSettings.vue'
+import { useRouteLoading } from '../composables/useRouteLoading'
+
+const { isRouteLoading } = useRouteLoading()
 </script>
 
 <template>
@@ -22,6 +26,7 @@ import ThemeSettings from '../components/ThemeSettings.vue'
         </RouterView>
       </main>
     </div>
+    <RouteLoadingOverlay :visible="isRouteLoading" />
     <ThemeSettings />
   </div>
 </template>
