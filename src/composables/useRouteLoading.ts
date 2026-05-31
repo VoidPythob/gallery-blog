@@ -35,14 +35,12 @@ export const useRouteLoading = (minimumDuration = 220) => {
     isRouteLoading.value = false
   }
 
-  const removeBeforeEach = router.beforeEach((to, from, next) => {
+  const removeBeforeEach = router.beforeEach((to, from) => {
     if (to.fullPath !== from.fullPath) {
       navigationToken += 1
       startedAt = performance.now()
       isRouteLoading.value = true
     }
-
-    next()
   })
 
   const removeAfterEach = router.afterEach((to, from) => {
