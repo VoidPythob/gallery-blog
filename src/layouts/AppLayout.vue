@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MouseParticles from '../components/MouseParticles.vue'
 import RouteLoadingOverlay from '../components/RouteLoadingOverlay.vue'
 import Topbar from '../components/Topbar.vue'
 import ThemeSettings from '../components/ThemeSettings.vue'
@@ -9,6 +10,7 @@ const { isRouteLoading } = useRouteLoading()
 
 <template>
   <div class="app-shell">
+    <MouseParticles />
     <Topbar />
     <div class="app-content">
       <main class="app-main">
