@@ -391,12 +391,10 @@
   }
 
   .theme-settings-panel {
-    top: max(12px, env(safe-area-inset-top));
     right: 18px;
     bottom: calc(78px + env(safe-area-inset-bottom));
     width: min(92vw, 360px);
-    height: auto;
-    max-height: none;
+    max-height: min(74vh, 560px);
     background: var(--panel-bg);
   }
 
@@ -412,9 +410,32 @@
 
   .theme-settings-scroll {
     padding: 14px;
-    max-height: calc(100dvh - max(12px, env(safe-area-inset-top)) - 78px - env(safe-area-inset-bottom) - 12px);
+    max-height: inherit;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .theme-color-picker-popup,
+  .theme-color-picker-popup-inner,
+  .theme-color-picker-popup .t-popup__content,
+  .theme-color-picker-popup .t-popup__content-inner {
+    max-width: min(92vw, 320px) !important;
+    max-height: min(62vh, 480px) !important;
+    overflow: auto !important;
+  }
+
+  .theme-color-picker-popup .t-color-picker {
+    width: min(92vw, 320px) !important;
+    max-width: min(92vw, 320px) !important;
+    transform-origin: top right;
+  }
+
+  .theme-color-picker-popup .t-color-picker__body,
+  .theme-color-picker-popup .t-color-picker__panel,
+  .theme-color-picker-popup .t-color-picker__sliders,
+  .theme-color-picker-popup .t-color-picker__inputs,
+  .theme-color-picker-popup .t-color-picker__swatches-wrap {
+    max-width: 100% !important;
   }
 }
 
