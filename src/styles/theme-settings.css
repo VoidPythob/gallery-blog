@@ -72,10 +72,37 @@
 }
 
 .theme-settings-trigger {
+  --td-brand-color: var(--accent-color);
+  --td-brand-color-hover: color-mix(in srgb, var(--accent-color) 88%, #ffffff 12%);
+  --td-brand-color-focus: color-mix(in srgb, var(--accent-color) 72%, #ffffff 28%);
+  --td-brand-color-active: color-mix(in srgb, var(--accent-color) 78%, #000000 22%);
+  --ripple-color: color-mix(in srgb, var(--accent-color) 68%, #ffffff 32%);
   width: 52px;
   height: 52px;
   border-radius: 999px;
   box-shadow: var(--shadow-style);
+  background: var(--accent-color) !important;
+  border-color: color-mix(in srgb, var(--accent-text-color) 72%, transparent) !important;
+  color: #fff !important;
+}
+
+.theme-settings-trigger:hover,
+.theme-settings-trigger:focus-visible {
+  background: color-mix(in srgb, var(--accent-color) 88%, #ffffff 12%) !important;
+  border-color: color-mix(in srgb, var(--accent-text-color) 82%, transparent) !important;
+  color: #fff !important;
+}
+
+.theme-settings-trigger::after,
+.theme-settings-trigger::before,
+.theme-settings-trigger .t-wave,
+.theme-settings-trigger .t-wave__node,
+.theme-settings-trigger [class*='wave'],
+.theme-settings-trigger [class*='ripple'] {
+  --td-wave-color: var(--ripple-color) !important;
+  --ripple-color: var(--ripple-color) !important;
+  background-color: var(--ripple-color) !important;
+  border-color: var(--ripple-color) !important;
 }
 
 .theme-settings-panel {
@@ -99,6 +126,33 @@
   padding: 16px;
   max-height: inherit;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--accent-color) 72%, transparent)
+    color-mix(in srgb, var(--accent-color) 14%, transparent);
+}
+
+.theme-settings-scroll::-webkit-scrollbar,
+.theme-color-picker-popup *::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-settings-scroll::-webkit-scrollbar-track,
+.theme-color-picker-popup *::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--accent-color) 12%, transparent);
+  border-radius: 999px;
+}
+
+.theme-settings-scroll::-webkit-scrollbar-thumb,
+.theme-color-picker-popup *::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--accent-color) 72%, transparent);
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent-text-color) 18%, transparent);
+}
+
+.theme-settings-scroll::-webkit-scrollbar-thumb:hover,
+.theme-color-picker-popup *::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--accent-color) 88%, transparent);
 }
 
 .theme-settings-title {
@@ -163,6 +217,39 @@
 .theme-mode-switch-label {
   color: var(--text-color);
   font-weight: 600;
+}
+
+.theme-settings-panel .t-slider {
+  --td-brand-color: var(--accent-color);
+  --td-brand-color-hover: color-mix(in srgb, var(--accent-color) 88%, #ffffff 12%);
+  --td-brand-color-focus: color-mix(in srgb, var(--accent-color) 24%, #ffffff 76%);
+  --td-brand-color-active: color-mix(in srgb, var(--accent-color) 78%, #000000 22%);
+}
+
+.theme-settings-panel .t-slider__track {
+  background: color-mix(in srgb, var(--accent-color) 82%, transparent) !important;
+}
+
+.theme-settings-panel .t-slider__rail {
+  background: color-mix(in srgb, var(--accent-color) 18%, transparent) !important;
+}
+
+.theme-settings-panel .t-slider__rail:hover {
+  background: color-mix(in srgb, var(--accent-color) 26%, transparent) !important;
+}
+
+.theme-settings-panel .t-slider__button,
+.theme-settings-panel .t-slider__button-wrapper::before {
+  background: var(--panel-bg) !important;
+  border-color: color-mix(in srgb, var(--accent-text-color) 82%, transparent) !important;
+}
+
+.theme-settings-panel .t-slider__button:hover {
+  background: color-mix(in srgb, var(--accent-color) 12%, var(--panel-bg)) !important;
+}
+
+.theme-settings-panel .t-slider__button--dragging {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-color) 28%, transparent) !important;
 }
 
 .theme-color-picker,
