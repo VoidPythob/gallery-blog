@@ -219,6 +219,30 @@
   font-weight: 600;
 }
 
+.theme-settings-panel .theme-mode-switch .t-switch {
+  --td-brand-color: var(--accent-color);
+  --td-brand-color-hover: color-mix(in srgb, var(--accent-color) 88%, #ffffff 12%);
+  --td-brand-color-focus: color-mix(in srgb, var(--accent-color) 24%, #ffffff 76%);
+  --td-brand-color-active: color-mix(in srgb, var(--accent-color) 78%, #000000 22%);
+  background: color-mix(in srgb, var(--surface-border) 56%, var(--surface-bg)) !important;
+}
+
+.theme-settings-panel .theme-mode-switch .t-switch:hover {
+  background: color-mix(in srgb, var(--surface-border) 72%, var(--surface-bg)) !important;
+}
+
+.theme-settings-panel .theme-mode-switch .t-switch.t-is-checked {
+  background: var(--accent-color) !important;
+}
+
+.theme-settings-panel .theme-mode-switch .t-switch.t-is-checked:hover {
+  background: color-mix(in srgb, var(--accent-color) 88%, #ffffff 12%) !important;
+}
+
+.theme-settings-panel .theme-mode-switch .t-switch__handle::before {
+  background: var(--panel-bg) !important;
+}
+
 .theme-settings-panel .t-slider {
   --td-brand-color: var(--accent-color);
   --td-brand-color-hover: color-mix(in srgb, var(--accent-color) 88%, #ffffff 12%);
