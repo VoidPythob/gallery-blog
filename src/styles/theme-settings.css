@@ -391,25 +391,30 @@
   }
 
   .theme-settings-panel {
+    top: max(12px, env(safe-area-inset-top));
     right: 18px;
-    bottom: 78px;
+    bottom: calc(78px + env(safe-area-inset-bottom));
     width: min(92vw, 360px);
-    max-height: min(74vh, 560px);
+    height: auto;
+    max-height: none;
     background: var(--panel-bg);
   }
 
   .theme-settings-trigger-wrap {
     right: 18px;
-    bottom: 18px;
+    bottom: calc(18px + env(safe-area-inset-bottom));
   }
 
   .theme-settings-hover-tools {
     right: 18px;
-    bottom: 78px;
+    bottom: calc(78px + env(safe-area-inset-bottom));
   }
 
   .theme-settings-scroll {
     padding: 14px;
+    max-height: calc(100dvh - max(12px, env(safe-area-inset-top)) - 78px - env(safe-area-inset-bottom) - 12px);
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
