@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { BloggerLink, BloggerProfile } from '../data/site'
 
 const props = defineProps<{
@@ -16,6 +16,19 @@ const platformIconMap: Record<string, string> = {
 }
 
 const links = computed(() => props.profile.links ?? [])
+const avatarValue = computed(() => props.profile.avatar?.trim() ?? '')
+const avatarLoadFailed = ref(false)
+const isAvatarImage = computed(() => /^(https?:\/\/|data:image\/|\/)/i.test(avatarValue.value))
+const avatarFallbackText = computed(() => {
+  const name = props.profile.name.trim()
+  if (name) return name.slice(0, 1)
+
+  return '?'
+})
+
+watch(avatarValue, () => {
+  avatarLoadFailed.value = false
+})
 
 const resolveIcon = (link: BloggerLink) => platformIconMap[link.platform] ?? ''
 </script>
@@ -23,7 +36,16 @@ const resolveIcon = (link: BloggerLink) => platformIconMap[link.platform] ?? ''
 <template>
   <section class="blogger-panel">
     <div class="blogger-card-core">
-      <div class="blogger-avatar">{{ profile.avatar }}</div>
+      <div class="blogger-avatar">
+        <img
+          v-if="isAvatarImage && !avatarLoadFailed"
+          class="blogger-avatar-image"
+          :src="avatarValue"
+          :alt="profile.name"
+          @error="avatarLoadFailed = true"
+        >
+        <span v-else>{{ avatarFallbackText }}</span>
+      </div>
       <div class="blogger-body">
         <p class="blogger-name">{{ profile.name }}</p>
         <p class="blogger-bio">{{ profile.bio }}</p>
