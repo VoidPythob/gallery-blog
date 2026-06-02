@@ -120,7 +120,7 @@ watch(filteredTagOptions, (list) => {
 
 <template>
   <ContentLayout>
-    <PageSection>
+    <PageSection class="tag-page-section">
       <template #title>
         <h2>{{ pageText.tagTitlePrefix }}{{ currentTagName }}</h2>
       </template>

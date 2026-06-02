@@ -255,10 +255,68 @@
     font-size: 14px;
   }
 
-  .theme-settings {
-    right: 12px;
-    bottom: 12px;
+  .tag-page-section .section-head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
   }
+
+  .tag-page-section .section-head h2 {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .tag-page-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .tag-page-actions > * {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .tag-popup-trigger.t-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tag-page-section .mode-switch {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tag-page-section .switch-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tag-filter-summary {
+    margin-top: 4px;
+  }
+
+  .tag-popup-panel {
+    width: min(92vw, 360px);
+    max-width: min(92vw, 360px);
+    padding: 14px;
+  }
+
+  .tag-popup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .tag-popup-footer {
+    overflow-x: auto;
+  }
+
+  .tag-popup-footer .pagination-bar {
+    min-width: 280px;
+  }
+
 }
 
 @media (max-width: 420px) {

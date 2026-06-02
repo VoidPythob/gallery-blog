@@ -16,7 +16,7 @@
 }
 
 .theme-settings-hover-tools {
-  position: absolute;
+  position: fixed;
   right: 28px;
   bottom: 88px;
   display: flex;
@@ -65,9 +65,7 @@
 }
 
 .theme-settings-trigger-wrap {
-  position: absolute;
-  top: auto;
-  left: auto;
+  position: fixed;
   right: 28px;
   bottom: 28px;
   pointer-events: auto;
@@ -81,9 +79,7 @@
 }
 
 .theme-settings-panel {
-  position: absolute;
-  top: auto;
-  left: auto;
+  position: fixed;
   right: 28px;
   bottom: 82px;
   width: 340px;
@@ -395,8 +391,6 @@
   }
 
   .theme-settings-panel {
-    top: auto;
-    left: auto;
     right: 18px;
     bottom: 78px;
     width: min(92vw, 360px);
@@ -405,8 +399,6 @@
   }
 
   .theme-settings-trigger-wrap {
-    top: auto;
-    left: auto;
     right: 18px;
     bottom: 18px;
   }

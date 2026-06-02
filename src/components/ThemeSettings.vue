@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { Button, ColorPicker, Slider, Switch } from 'tdesign-vue-next'
 import { ArrowLeftIcon, ArrowRightIcon, Brightness1Icon, SettingIcon } from 'tdesign-icons-vue-next'
 import { useThemeStore, type ThemeFilter } from '../stores/theme'
@@ -8,7 +8,6 @@ import { themeFilterOptions, themePanelText } from '../data/ui'
 const themeStore = useThemeStore()
 const visible = ref(false)
 const colorDraft = ref(themeStore.accentColor)
-const rootRef = ref<HTMLElement | null>(null)
 
 let colorTimer: number | undefined
 
@@ -54,11 +53,7 @@ const toggleVisible = () => {
   visible.value = !visible.value
 }
 
-const onDocumentClick = (event: MouseEvent) => {
-  if (!visible.value) return
-  const target = event.target
-  if (!(target instanceof Node)) return
-  if (rootRef.value?.contains(target)) return
+const closeVisible = () => {
   visible.value = false
 }
 
@@ -83,21 +78,25 @@ watch(colorDraft, (value) => {
   commitColor(value)
 })
 
-onMounted(() => {
-  document.addEventListener('click', onDocumentClick)
-})
-
 onBeforeUnmount(() => {
   if (colorTimer) {
     window.clearTimeout(colorTimer)
   }
-  document.removeEventListener('click', onDocumentClick)
 })
 </script>
 
 <template>
   <Teleport to="body">
-    <div ref="rootRef" class="theme-settings" :class="[`is-${dockSide}`]">
+    <div class="theme-settings" :class="[`is-${dockSide}`]">
+      <button
+        v-if="visible"
+        class="theme-settings-backdrop"
+        type="button"
+        aria-label="关闭主题设置"
+        style="position: fixed; inset: 0; margin: 0; padding: 0; border: 0; background: transparent; pointer-events: auto;"
+        @click="closeVisible"
+      />
+
       <div class="theme-settings-hover-tools">
         <Button
           class="theme-hover-tool-btn"
