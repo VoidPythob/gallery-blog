@@ -1,16 +1,19 @@
-﻿<script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+<script setup lang="ts">
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { Drawer } from 'tdesign-vue-next'
 import BloggerCard from './BloggerCard.vue'
 import SearchBar from './SearchBar.vue'
-import { navIconMap, navItems, pageText, siteMeta } from '../data/ui'
+import { navIconMap, navItems, pageText } from '../data/ui'
 import { getBlogger, type BloggerProfile } from '../data/site'
+import { useSiteConfigStore } from '../stores/siteConfig'
 
 const route = useRoute()
+const siteConfigStore = useSiteConfigStore()
 const drawerOpen = ref(false)
 const scrolled = ref(false)
 const blogger = ref<BloggerProfile | null>(null)
+const siteName = computed(() => siteConfigStore.config.branding.siteName)
 
 const isActive = (to: string) => {
   if (to === '/') return route.path === '/'
@@ -39,7 +42,7 @@ onUnmounted(() => {
     <div class="topbar-left">
       <button class="icon-btn topbar-menu" type="button" @click="drawerOpen = true">=</button>
       <RouterLink to="/" class="topbar-brand">
-        <p class="brand-title">{{ siteMeta.title }}</p>
+        <p class="brand-title">{{ siteName }}</p>
       </RouterLink>
     </div>
 

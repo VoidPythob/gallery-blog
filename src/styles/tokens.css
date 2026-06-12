@@ -6,6 +6,7 @@
   --topbar-height: 68px;
   --page-base-bg: #f4f7fb;
   --page-background: linear-gradient(180deg, #eaf0ff 0%, #f8fbff 100%);
+  --page-background-image: none;
   --text-color: #1f2937;
   --muted-text: #4b5563;
   --surface-bg: rgba(255, 255, 255, 0.88);

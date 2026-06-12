@@ -1,0 +1,16 @@
+{
+  "branding": {
+    "siteName": "Gallery Blog",
+    "homeTitle": "Gallery Blog",
+    "subtitle": "静态博客 / 画廊站点",
+    "brandMark": "G"
+  },
+  "hero": {
+    "kicker": "Gallery Blog",
+    "enterText": "进入内容区"
+  },
+  "backgrounds": {
+    "light": "",
+    "dark": ""
+  }
+}

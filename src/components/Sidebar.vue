@@ -1,15 +1,19 @@
-﻿<script setup lang="ts">
-import { onMounted, ref } from 'vue'
+<script setup lang="ts">
+import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { navIconMap, navItems, siteMeta } from '../data/ui'
+import { navIconMap, navItems } from '../data/ui'
 import { getDailyWord } from '../data/site'
+import { useSiteConfigStore } from '../stores/siteConfig'
 
 const route = useRoute()
+const siteConfigStore = useSiteConfigStore()
+const dailyWord = ref('')
+const branding = computed(() => siteConfigStore.config.branding)
+
 const isActive = (to: string) => {
   if (to === '/') return route.path === '/'
   return route.path === to || route.path.startsWith(`${to}/`)
 }
-const dailyWord = ref('')
 
 onMounted(async () => {
   dailyWord.value = await getDailyWord()
@@ -19,10 +23,10 @@ onMounted(async () => {
 <template>
   <aside class="sidebar">
     <div class="sidebar-brand">
-      <div class="brand-mark">{{ siteMeta.brandMark }}</div>
+      <div class="brand-mark">{{ branding.brandMark }}</div>
       <div>
-        <p class="brand-title">{{ siteMeta.title }}</p>
-        <p class="brand-subtitle">{{ siteMeta.subtitle }}</p>
+        <p class="brand-title">{{ branding.siteName }}</p>
+        <p class="brand-subtitle">{{ branding.subtitle }}</p>
       </div>
     </div>
 

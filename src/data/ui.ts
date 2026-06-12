@@ -1,7 +1,5 @@
 import type { ThemeFilter } from "../stores/theme";
-import siteMetaJson from "./ui/site-meta.json";
 import navItemsJson from "./ui/nav-items.json";
-import heroConfigJson from "./ui/hero-config.json";
 import pageTextJson from "./ui/page-text.json";
 import modeTextJson from "./ui/mode-text.json";
 import themePanelTextJson from "./ui/theme-panel-text.json";
@@ -22,12 +20,6 @@ export type FriendLinkCompat = {
   icon?: string;
 };
 
-export const siteMeta = siteMetaJson as {
-  title: string;
-  subtitle: string;
-  brandMark: string;
-};
-
 export const navItems = navItemsJson.items as NavItem[];
 export const navIconMap = {
   HomeIcon,
@@ -37,12 +29,6 @@ export const navIconMap = {
   LinkIcon,
   TimeIcon,
 } as const;
-
-export const heroConfig = heroConfigJson as {
-  kicker: string;
-  title: string;
-  enterText: string;
-};
 
 export const pageText = pageTextJson as {
   blogTitle: string;
@@ -79,6 +65,4 @@ export const themeFilterOptions = themeFilterOptionsJson.options as Array<{
   value: ThemeFilter;
 }>;
 
-// Compatibility export for stale dev-server modules that still import `friendLinks` from ui.ts.
-// The actual friend-link data is now loaded from `public/posts/friend-links.json` in `data/site.ts`.
 export const friendLinks: FriendLinkCompat[] = [];

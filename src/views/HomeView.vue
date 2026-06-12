@@ -7,10 +7,12 @@ import ArticleCard from '../components/ArticleCard.vue'
 import GalleryCard from '../components/GalleryCard.vue'
 import PaginationBar from '../components/PaginationBar.vue'
 import { getArticles, getDailyWord, getGalleryItems, type Article, type GalleryItem } from '../data/site'
-import { heroConfig, pageText } from '../data/ui'
+import { pageText } from '../data/ui'
+import { useSiteConfigStore } from '../stores/siteConfig'
 
 const HOME_PAGE_SIZE = 10
 
+const siteConfigStore = useSiteConfigStore()
 const typedQuote = ref('')
 const articles = ref<Article[]>([])
 const galleryItems = ref<GalleryItem[]>([])
@@ -18,6 +20,12 @@ const contentSectionRef = ref<HTMLElement | null>(null)
 const featuredGalleryItems = computed(() => galleryItems.value.filter((item) => item.isFeatured))
 const articlePage = ref(1)
 const galleryPage = ref(1)
+const heroConfig = computed(() => ({
+  kicker: siteConfigStore.config.hero.kicker,
+  title: siteConfigStore.config.branding.homeTitle,
+  enterText: siteConfigStore.config.hero.enterText,
+}))
+
 let timer: number | undefined
 let index = 0
 let dailyQuote = ''
@@ -83,7 +91,6 @@ const handleEnterContent = () => {
     block: 'start',
   })
 }
-
 </script>
 
 <template>

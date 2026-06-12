@@ -1,14 +1,25 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, type ComponentPublicInstance } from 'vue'
 import { useRouter } from 'vue-router'
 import { getTimelineEntries, type TimelineEntry } from '../data/site'
+import { useSiteConfigStore } from '../stores/siteConfig'
+import { useThemeStore } from '../stores/theme'
 
 const router = useRouter()
+const siteConfigStore = useSiteConfigStore()
+const themeStore = useThemeStore()
 const timelineEntries = ref<TimelineEntry[]>([])
 const activeBackground = ref('')
 const activeEntryId = ref('')
 const timelineRows = ref<HTMLElement[]>([])
-const defaultTimelineBackground = 'linear-gradient(180deg, rgba(24, 32, 53, 0.86) 0%, rgba(44, 50, 74, 0.82) 100%)'
+const defaultTimelineBackground = computed(() => {
+  const image = themeStore.mode === 'dark'
+    ? siteConfigStore.config.backgrounds.dark
+    : siteConfigStore.config.backgrounds.light
+  return image
+    ? `url(${image})`
+    : 'linear-gradient(180deg, rgba(24, 32, 53, 0.86) 0%, rgba(44, 50, 74, 0.82) 100%)'
+})
 
 let observer: IntersectionObserver | null = null
 let scrollRaf = 0
@@ -96,7 +107,7 @@ onBeforeUnmount(() => {
   <section class="timeline-page">
     <div
       class="timeline-background"
-      :style="activeBackground ? { backgroundImage: `url(${activeBackground})` } : { background: defaultTimelineBackground }"
+      :style="activeBackground ? { backgroundImage: `url(${activeBackground})` } : { backgroundImage: defaultTimelineBackground }"
     />
     <div class="timeline-mask" />
     <div class="timeline-inner">

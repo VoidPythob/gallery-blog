@@ -49,6 +49,25 @@ export type FriendLink = {
   icon?: string;
 };
 
+export type SiteBackgroundPair = {
+  light: string;
+  dark: string;
+};
+
+export type SiteConfig = {
+  branding: {
+    siteName: string;
+    homeTitle: string;
+    subtitle: string;
+    brandMark: string;
+  };
+  hero: {
+    kicker: string;
+    enterText: string;
+  };
+  backgrounds: SiteBackgroundPair;
+};
+
 type FriendLinkSource = {
   name?: string;
   href?: string;
@@ -106,6 +125,7 @@ const tagArticleMapPath = 'tag-article-map.json';
 const tagGalleryMapPath = 'tag-gallery-map.json';
 const bloggerPath = 'blogger.json';
 const friendLinksPath = 'friend-links.json';
+const siteConfigPath = 'site-config.json';
 const resolvePostsPath = (path: string) => `${import.meta.env.BASE_URL}posts/${path}`;
 
 let articlesCache: Article[] | null = null;
@@ -117,6 +137,21 @@ let tagGalleryMapCache: Record<number, number[]> | null = null;
 let bloggerCache: BloggerProfile | null = null;
 let friendLinksCache: FriendLink[] | null = null;
 let timelineCache: TimelineEntry[] | null = null;
+let siteConfigCache: SiteConfig | null = null;
+
+export const defaultSiteConfig: SiteConfig = {
+  branding: {
+    siteName: 'Gallery Blog',
+    homeTitle: 'Gallery Blog',
+    subtitle: '静态博客 / 画廊站点',
+    brandMark: 'G',
+  },
+  hero: {
+    kicker: 'Gallery Blog',
+    enterText: '进入内容区',
+  },
+  backgrounds: { light: '', dark: '' },
+};
 
 const loadJsonList = async <T>(path: string): Promise<T[]> => {
   try {
@@ -308,6 +343,38 @@ export const getFriendLinks = async () => {
     }))
     .filter((item) => Boolean(item.name) && Boolean(item.href) && item.href !== '#');
   return friendLinksCache;
+};
+
+export const getSiteConfig = async () => {
+  if (siteConfigCache) return siteConfigCache;
+  try {
+    const response = await fetch(resolvePostsPath(siteConfigPath), { cache: 'no-store' });
+    if (!response.ok) {
+      siteConfigCache = defaultSiteConfig;
+      return siteConfigCache;
+    }
+    const data = (await response.json()) as Partial<SiteConfig>;
+    const backgrounds = (data.backgrounds ?? {}) as Partial<SiteBackgroundPair>;
+    siteConfigCache = {
+      branding: {
+        siteName: data.branding?.siteName ?? defaultSiteConfig.branding.siteName,
+        homeTitle: data.branding?.homeTitle ?? data.branding?.siteName ?? defaultSiteConfig.branding.homeTitle,
+        subtitle: data.branding?.subtitle ?? defaultSiteConfig.branding.subtitle,
+        brandMark: data.branding?.brandMark ?? defaultSiteConfig.branding.brandMark,
+      },
+      hero: {
+        kicker: data.hero?.kicker ?? data.branding?.siteName ?? defaultSiteConfig.hero.kicker,
+        enterText: data.hero?.enterText ?? defaultSiteConfig.hero.enterText,
+      },
+      backgrounds: {
+        light: backgrounds.light ?? defaultSiteConfig.backgrounds.light,
+        dark: backgrounds.dark ?? defaultSiteConfig.backgrounds.dark,
+      },
+    };
+  } catch {
+    siteConfigCache = defaultSiteConfig;
+  }
+  return siteConfigCache;
 };
 
 export const getTimelineEntries = async () => {
