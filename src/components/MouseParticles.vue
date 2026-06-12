@@ -240,12 +240,14 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <canvas
-    v-show="isEnabled"
-    ref="canvasRef"
-    class="mouse-particles"
-    aria-hidden="true"
-  />
+  <Teleport to="body">
+    <canvas
+      v-show="isEnabled"
+      ref="canvasRef"
+      class="mouse-particles"
+      aria-hidden="true"
+    />
+  </Teleport>
 </template>
 
 <style scoped>

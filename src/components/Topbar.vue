@@ -64,6 +64,7 @@ onUnmounted(() => {
 
   <Drawer
     v-model:visible="drawerOpen"
+    attach="body"
     placement="left"
     :show-overlay="true"
     :header="false"
