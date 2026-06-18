@@ -41,6 +41,7 @@ onUnmounted(() => {
   <header class="topbar" :class="{ scrolled }">
     <div class="topbar-left">
       <button class="icon-btn topbar-menu" type="button" @click="drawerOpen = true">=</button>
+      <img class="topbar-icon" src="/favicon.png">
       <RouterLink to="/" class="topbar-brand">
         <p class="brand-title">{{ siteName }}</p>
       </RouterLink>
