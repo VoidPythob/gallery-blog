@@ -371,6 +371,7 @@
   height: 46px;
   padding: 0;
   border-radius: 999px;
+  cursor: pointer;
   background: var(--surface-bg);
   color: var(--text-color);
   border: 1px solid var(--surface-border);
@@ -737,23 +738,47 @@
 }
 
 .tag-popup-trigger.t-button {
-  background: color-mix(in srgb, var(--surface-bg) 92%, var(--page-base-bg)) !important;
-  border-color: color-mix(in srgb, var(--surface-border) 92%, transparent) !important;
+  background: color-mix(
+    in srgb,
+    var(--surface-bg) 92%,
+    var(--page-base-bg)
+  ) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 92%,
+    transparent
+  ) !important;
   color: var(--text-color) !important;
   box-shadow: none !important;
 }
 
 .tag-popup-trigger.t-button:hover,
 .tag-popup-trigger.t-button:focus-visible {
-  background: color-mix(in srgb, var(--surface-bg) 98%, var(--page-base-bg)) !important;
-  border-color: color-mix(in srgb, var(--accent-text-color) 24%, var(--surface-border)) !important;
+  background: color-mix(
+    in srgb,
+    var(--surface-bg) 98%,
+    var(--page-base-bg)
+  ) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--accent-text-color) 24%,
+    var(--surface-border)
+  ) !important;
   color: var(--accent-text-color) !important;
 }
 
 .tag-popup-trigger.t-button:active,
 .tag-popup-trigger.t-button.t-is-active {
-  background: color-mix(in srgb, var(--surface-bg) 90%, var(--page-base-bg)) !important;
-  border-color: color-mix(in srgb, var(--accent-text-color) 28%, var(--surface-border)) !important;
+  background: color-mix(
+    in srgb,
+    var(--surface-bg) 90%,
+    var(--page-base-bg)
+  ) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--accent-text-color) 28%,
+    var(--surface-border)
+  ) !important;
   color: var(--accent-text-color) !important;
 }
 
@@ -770,17 +795,25 @@
 
 .tag-filter-btn {
   background: color-mix(in srgb, var(--surface-bg) 90%, var(--page-base-bg));
-  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
 }
 
 .tag-filter-btn.active {
   background: color-mix(in srgb, var(--surface-bg) 82%, var(--page-base-bg));
-  border-color: color-mix(in srgb, var(--accent-text-color) 26%, var(--surface-border));
+  border-color: color-mix(
+    in srgb,
+    var(--accent-text-color) 26%,
+    var(--surface-border)
+  );
   color: var(--accent-text-color);
 }
 
 .tag-filter-current {
-  border: 1px solid color-mix(in srgb, var(--accent-text-color) 24%, var(--surface-border));
+  border: 1px solid
+    color-mix(in srgb, var(--accent-text-color) 24%, var(--surface-border));
 }
 
 .tag-popup-panel {
@@ -792,7 +825,7 @@
   box-shadow: var(--shadow-style);
 }
 
-:root[data-theme='dark'] .tag-popup-panel {
+:root[data-theme="dark"] .tag-popup-panel {
   background: color-mix(in srgb, var(--page-base-bg) 82%, #111827 18%);
 }
 
@@ -822,8 +855,16 @@
 
 .tag-popup-search .t-input,
 .tag-popup-search .t-input__wrap {
-  background: color-mix(in srgb, var(--surface-bg) 94%, var(--page-base-bg)) !important;
-  border-color: color-mix(in srgb, var(--surface-border) 92%, transparent) !important;
+  background: color-mix(
+    in srgb,
+    var(--surface-bg) 94%,
+    var(--page-base-bg)
+  ) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--surface-border) 92%,
+    transparent
+  ) !important;
   color: var(--text-color) !important;
 }
 
@@ -1260,6 +1301,7 @@
 
 .timeline-pane {
   display: flex;
+  cursor: pointer;
 }
 
 .timeline-pane.is-left {

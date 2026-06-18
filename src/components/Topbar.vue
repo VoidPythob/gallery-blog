@@ -47,13 +47,8 @@ onUnmounted(() => {
     </div>
 
     <nav class="topbar-nav">
-      <RouterLink
-        v-for="item in navItems"
-        :key="item.to"
-        :to="item.to"
-        class="topbar-link"
-        :class="{ active: isActive(item.to) }"
-      >
+      <RouterLink v-for="item in navItems" :key="item.to" :to="item.to" class="topbar-link"
+        :class="{ active: isActive(item.to) }">
         <component :is="navIconMap[item.icon]" class="nav-icon" />
         {{ item.label }}
       </RouterLink>
@@ -65,15 +60,8 @@ onUnmounted(() => {
     </div>
   </header>
 
-  <Drawer
-    v-model:visible="drawerOpen"
-    attach="body"
-    placement="left"
-    :show-overlay="true"
-    :header="false"
-    :footer="false"
-    size="320px"
-  >
+  <Drawer v-model:visible="drawerOpen" attach="body" placement="left" :show-overlay="true" :header="false"
+    :footer="false" size="320px">
     <div class="drawer-panel">
       <div class="drawer-stack">
         <div class="drawer-head">
@@ -81,14 +69,8 @@ onUnmounted(() => {
           <button class="icon-btn" type="button" @click="drawerOpen = false">x</button>
         </div>
 
-        <RouterLink
-          v-for="item in navItems"
-          :key="item.to"
-          :to="item.to"
-          class="drawer-link"
-          :class="{ active: isActive(item.to) }"
-          @click="drawerOpen = false"
-        >
+        <RouterLink v-for="item in navItems" :key="item.to" :to="item.to" class="drawer-link"
+          :class="{ active: isActive(item.to) }" @click="drawerOpen = false">
           <component :is="navIconMap[item.icon]" class="nav-icon" />
           {{ item.label }}
         </RouterLink>
